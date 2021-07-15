@@ -2,3 +2,8 @@ build/
 *.aux
 *.log
 *.thm
+*.fls
+*.out
+*.gz
+*.toc
+*.fdb_latexmk

@@ -1,0 +1,24 @@
+\ProvidesPackage{custom_definitions}
+
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\vz}{\vec{0}}
+\newcommand{\vx}{\vec{x}}
+\newcommand{\vy}{\vec{y}}
+
+\newcommand{\st}{\mathrm{\, tal \, que \,}}
+
+
+\newcommand{\lincomb}[3]{{#1}^{1}\vec{#2}_{1}+{#1}^{2}\vec{#2}_{2}+\dots+{#1}^{#3}\vec{#2}_{#3}}
+
+\newcommand{\ulst}[2]{{#1}^{1}, {#1}^{2}, \dots, {#1}^{#2}} 
+\newcommand{\dlst}[2]{{#1}_{1}, {#1}_{2}, \dots, {#1}_{#2}} 
+
+% Listas con un tercer parámetro que actua de sub/superindice constante
+\newcommand{\ulstp}[3]{{#1}^{1}_{#3}, {#1}^{2}_{#3}, \dots, {#1}^{#2}_{#3}} 
+\newcommand{\dlstp}[3]{{#1}^{#3}_{1}, {#1}^{#3}_{2}, \dots, {#1}^{#3}_{#2}} 
+
+
+\newcommand{\lspan}[1]{L\left(#1\right)}
+
+\newcommand{\scalarlst}[2]{ \lst{#1}{#2} \in \K }
+
