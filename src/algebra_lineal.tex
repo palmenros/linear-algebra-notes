@@ -1,0 +1,31 @@
+\documentclass[a4paper, 10pt, openany]{report}
+
+\usepackage{geometry}
+\usepackage[spanish]{babel}
+\usepackage{parskip}
+
+% básicos
+\usepackage{subfiles} 
+\usepackage{hyperref} % último en cargar
+
+% personalizados
+\usepackage{general}
+\usepackage{conjuntos}
+\usepackage{teoremas}
+\usepackage{calculo}
+\usepackage{algebra}
+
+\title{Álgebra lineal}
+\author{Pedro Palacios Almendros}
+\date{Curso 2018--2019}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\chapter{Introducción}
+\subfile{teoria/intro}
+
+\end{document}
