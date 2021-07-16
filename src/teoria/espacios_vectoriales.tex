@@ -1,6 +1,6 @@
 % !TeX root = ../algebra_lineal.tex
 
-\documentclass[../ecuaciones_diferenciales.tex]{subfiles}
+\documentclass[../algebra_lineal.tex]{subfiles}
 
 \begin{document}
 
@@ -309,11 +309,143 @@ Ya hemos comentado anteriormente que cuanto más \textit{pequeño} sea $H$, más
 De este concepto nace la siguiente definición:
 
 \begin{definition}[Familia linealmente dependiente]
-    
+    Si $p \ge 2$ y $\vlst{x}{p} \in V$. Diremos que la familia $\set{\vlst{x}{p}}$ es linealmente dependiente si uno de ellos es combinación lineal de los otros. En el caso $p=1$, un único vector es linealmente dependiente solo si es el vector nulo, en caso contrario, es linealmente independiente. Alternativamente, la familia $\set{\vlst{x}{p}}$ es linealmente dependiente si
+    \[\exists i \in \set{1, 2, \dots, p} \st \vx_i \in \lspan{\set{\vlst{x}{i-1}, \vx_{i+1}, \dots, \vx_p}}
+    \]
 \end{definition}
 
-\begin{remark}
-    Un único vector es linealmente dependiente solo si es el vector $\zv$, en caso contrario es linealmente independiente. 
-\end{remark}
+Muchas veces nos resultará más útil hablar de \textit{familias linealmente independientes}.
+
+\begin{definition}[Familia linealmente independiente]
+    La familia $\set{\vlst{x}{p}}$ es linealmente independiente si no es linealmente dependiente. Alternativamente, $\set{\vlst{x}{p}}$ es linealmente independiente si
+    \[\forall i \in \set{1, 2, \dots, p}, \spc \vx_i \notin \lspan{\set{\vlst{x}{i-1}, \vx_{i+1}, \dots, \vx_p}}
+    \]
+\end{definition}
+
+Existe otra caracterización muy importante de la dependencia lineal, que nos permitirá más adelante demostrar resultados importantes.
+
+\begin{proposition}
+   Sean $\set{\vlst{x}{p}} \in V$. Entonces  $\set{\vlst{x}{p}}$ son linealmente dependientes si y solo si $\exists \slst{a}{p} \in \K$ no todos nulos tal que $\lincomb{a}{x}{p} = \zv$
+
+\end{proposition}
+
+\begin{proof}
+
+    Analicemos las dos implicaciones por separado.
+    \begin{enumerate}
+        \item[\protect\fbox{$\Rightarrow$}] Supongamos $\set{\vlst{x}{p}}$ linealmente dependientes, es decir 
+        \[\exists i \in \set{1, 2, \dots, p} \st \vx_i \in \lspan{\set{\vlst{x}{i-1}, \vx_{i+1}, \dots, \vx_p}}\]
+        Por tanto, $\exists \slst{a}{i-1}, a^{i+1}, a^p \in \K$ tales que 
+        \[
+            \vx_i = \lincomb{a}{x}{i-1}+a^{i+1}\vx_{i+1}+\dots+a^p \vx_p  
+        \]
+        Restando $\vx_i$ a ambos lados de la ecuación llegamos a que
+        \[
+            \vx_i - \vx_i = \zv  = \lincomb{a}{x}{i-1}+\underbrace{(-1)}_{\ne 0}\vx_i +a^{i+1}\vx_{i+1}+\dots+a^p \vx_p
+        \]
+        \item[\protect\fbox{$\Leftarrow$}] Supongamos que $\exists \slst{a}{p} \in \K$ no todos nulos tal que $\lincomb{a}{x}{p} = 0$. Sea $i\in \set{1, \dots, p} \st a^i \ne 0 \Rightarrow \frac{1}{a} \in \K$. Por tanto,
+        \begin{align*}
+            \zv &= \frac{1}{a^i} \cdot \zv = \frac{1}{a^i}\parens{ \lincomb{a}{x}{i-1} + a^i\vx_i + a^{i+1}\vx_{i+1} + \dots a^p\vx_p} \\
+                &= \parens{\frac{a^1}{a^i}}\vx_1 + \parens{\frac{a^2}{a^i}}\vx_2 + \dots + \parens{\frac{a^{i-1}}{a^i}}\vx_{i-1} + \underbrace{\parens{\frac{a^{i}}{a^i}}}_{1}\vx_{i} + \parens{\frac{a^{i+1}}{a^i}}\vx_{i+1} + \dots + \parens{\frac{a^{p}}{a^i}}\vx_{p}
+        \end{align*}
+        El coeficiente de $\vx_{i-1}$ es $1$, así que basta pasar el resto de términos que le acompañan restando para despejar $\vx_{i-1}$, obteniendo 
+        \[
+           \vx_{i} = \underbrace{\parens{\frac{-a^1}{a^i}}}_{\in \K}\vx_1 + \underbrace{\parens{\frac{-a^2}{a^i}}}_{\in \K}\vx_2 + \dots + \underbrace{\parens{\frac{-a^{i-1}}{a^i}}}_{\in \K}\vx_{i-1} + \underbrace{\parens{\frac{-a^{i+1}}{a^i}}}_{\in \K}\vx_{i+1} + \dots + \underbrace{\parens{\frac{-a^{p}}{a^i}}}_{\in \K}\vx_{p}
+        \]
+
+        Por tanto, $\vx_i$ es combinación lineal del resto de vectores.
+    \end{enumerate}
+\end{proof}
+
+Negando los dos lados del si y solo si en la proposición anterior, conseguimos el siguiente corolario.
+
+\begin{corollary}
+    \label{linear_independence_corollary}
+    Sean $\set{\vlst{x}{p}} \subseteq V$. Entonces $\set{\vlst{x}{p}}$ son linealmente independientes $\iff$ si  $\slst{a}{p} \in \K \st \lincomb{a}{x}{p} = \zv$ entonces $a^i = 0 \spc \forall i \in  \set{1, \dots, p} $. 
+\end{corollary}
+
+Una propiedad muy importante de las familias linealmente independientes, es que cualquier vector que se pueda expresar como combinación lineal de ellas se hace de manera única, es decir, no existen dos combinaciones lineales distintas de elementos de la familia. La demostración se apoya en la caracterízación que acabamos de demostrar.
+
+\begin{proposition}
+    Sean $\set{\vlst{x}{p}} \subseteq V$. Entonces son equivalentes:
+    \begin{enumerate}[a)]
+        \item $\set{\vlst{x}{p}}$ son linealmente independientes.
+        \item Cualquier vector de $\lspan{\set{\vlst{x}{p}}}$ se puede expresar como una única combinación lineal.  Es decir, $\forall \vx \in \lspan{\set{\vlst{x}{p}}}, \spc \exists! \, \slst{a}{p} \in \K$ tal que $\vx = \lincomb{a}{x}{p}$. 
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+
+    Analicemos las dos implicaciones por separado.
+    \begin{enumerate}[itemindent=20pt]
+        \item[\protect\fbox{a) $\Rightarrow$ b)}] Supongamos que $\set{\vlst{x}{p}}$ son l.i. (linealmente independientes). \\
+        Sea $\vx \in \lspan{\set{\vlst{x}{p}}} \Rightarrow \exists \slst{a}{p} \in \K \st \vx = \lincomb{a}{x}{p}$. Sean $\slst{a}{p} \in \K \st \vx = \lincomb{a}{x}{p}$. Entonces, restando:
+        \begin{align*}
+            \zv &= \vx - \vx = \lincomb{a}{x}{p} - (\lincomb{b}{x}{p}) = \\
+                &= \parens{a^1-b^1}\vx_1 + \parens{a^2-b^2}\vx_2 + \dots + \parens{a^p-b^p}\vx_p
+        \end{align*}
+        Como hemos supuestos que $\set{\vlst{x}{p}}$ son l.i., por el corolario \ref{linear_independence_corollary} todos los coeficientes son 0, es decir,
+        \[
+            \begin{array}[t].{l}\}
+            a^1-b^1 = 0 \\
+            a^2-b^2 = 0 \\ 
+            \hspace{12.74mm}\vdots \\
+            a^p-b^p = 0
+            \end{array}
+            \begin{array}[t]{@{}c@{}}\\{}\implies {}\\{}\end{array}
+            \begin{array}[t].{l}\}
+                a^1 = b^1 \\
+                a^2 = b^2 \\ 
+                \hspace{5.3mm}\vdots \\
+            a^p = b^p
+            \end{array}
+        \]
+    
+        \item[\protect\fbox{b) $\Rightarrow$ a)}] Supongamos que si $\vx \in \lspan{\set{\vlst{x}{p}}}, \spc \exists ! \, \slst{a}{p} \in \K $ tal que 
+        \(\vx = \lincomb{a}{x}{p}\). Demostremos que $\set{\vlst{x}{p}}$ son linealmente independientes utilizando la caracterización. Sean $\slst{b}{p}\in \K$ tal que $\lincomb{b}{x}{p} = \zv$. Además, por ser $0\cdot \vx = \zv \spc \forall x \in V$, tenemos que $0 \cdot \vx_1 + 0 \cdot \vx_2 + \dots + 0 \cdot \vx_p = \zv$. El vector nulo se puede expresar entonces como dos combinaciones lineales:
+
+        \[
+        \begin{cases}
+            \lincomb{b}{x}{p} &= \zv \\
+            0 \cdot \vx_1 + 0 \cdot \vx_2 + \dots + 0 \cdot \vx_p &= \zv
+        \end{cases}
+        \]
+        Como solamente existe una única combinación lineal que represente a $\zv$, entonces $b^i = 0 \spc \forall i \in \set{1, \dots, p} $ 
+    \end{enumerate}
+\end{proof}
+
+    La siguiente proposición nos ayudará a expandir una familia de vectores que ya sabemos que son linealmente independientes con un nuevo vector bajo ciertas condiciones.
+
+    \begin{proposition}
+        Sean $\set{\vlst{x}{p}}$ linealmente independientes y sea $\vx \notin \lspan{\set{\vlst{x}{p}}}$, es decir, $\vx$ no es combinación lineal de $\set{\vlst{x}{p}}$. Entonces $\set{\vx, \vlst{x}{p}}$ son l.i.
+    \end{proposition}
+
+    \begin{proof}
+        Sean $a,\slst{a}{p} \in \K$ tal que $a\vx + \lincomb{a}{x}{p} = 0$
+        Veamos por reducción al absurdo que neecsariamente $a = 0$.
+        \begin{enumerate}[itemindent=20pt]
+            \item[\protect\fbox{si $a \ne 0$}] 
+            \[
+                \zv = \frac{1}{a} \cdot \zv = \frac{1}{a} \left( a\vx + a^1 \vx_1 + \dots + a^p\vx_p  \right) = \vx + \frac{a^1}{a}\vx_1 + \dots + \frac{a^p}{a}\vx_p
+            \]
+            Despejando $\vx$ restando
+            \[
+                \vx = \parens{\frac{-a^1}{a}}\vx_1 + \dots + \parens{\frac{-a^p}{a}}\vx_p
+            \]
+            Hemos llegado a una contradicción porque hemos podido expresar $\vx$ como combinación lineal de $\set{\vlst{x}{p}}$, por tanto, necesariamente $a=0$
+            \item[\protect\fbox{si $a = 0$}] Como $a=0$, solamente necesitamos ver que $a_i=0 \spc \forall i \in \set{1, \dots, p}$.
+            \[
+                \zv = \underbrace{0 \cdot \vx}_{\zv} + \lincomb{a}{x}{p} = \lincomb{a}{x}{p}
+            \] 
+
+            Como $\set{\vlst{x}{p}}$ son l.i., $a_i=0 \spc \forall i \in \set{1, \dots, p}$. Como además $a=0$, tenemos que $\set{x, \vlst{x}{p}}$ son l.i.
+        \end{enumerate}
+    \end{proof}
+
+    \begin{remark}
+        A pesar de ser un error relativamente común, si existen 4 vectores linealmente independientes 3 a 3 entre sí, eso no implica que los 4 vectores sean linealmente independientes. Un contraejemplo de esto son los vectores $\set{(1,0,0),(0,1,0),(0,0,1),(1,1,1)}$ de $\R^3$.
+    \end{remark}
+
+\section{Teoremas de la base}
 
 \end{document}
