@@ -1,12 +1,15 @@
 \ProvidesPackage{custom_definitions}
 
 \newcommand{\K}{\mathbb{K}}
-\newcommand{\vz}{\vec{0}}
+\newcommand{\zv}{\vec{0}}
 \newcommand{\vx}{\vec{x}}
 \newcommand{\vy}{\vec{y}}
+\newcommand{\vz}{\vec{z}}
+\newcommand{\st}{\mathrm{\,\, tal \,\, que \,\,}}
 
-\newcommand{\st}{\mathrm{\, tal \, que \,}}
-
+%Espacio estándar a utilizar después de un para todo o de un existe
+\newcommand{\spc}{\hspace{1.5mm}}
+\newcommand{\kvspace}{$\K$-espacio vectorial}
 
 \newcommand{\lincomb}[3]{{#1}^{1}\vec{#2}_{1}+{#1}^{2}\vec{#2}_{2}+\dots+{#1}^{#3}\vec{#2}_{#3}}
 
@@ -20,5 +23,5 @@
 
 \newcommand{\lspan}[1]{L\left(#1\right)}
 
-\newcommand{\scalarlst}[2]{ \lst{#1}{#2} \in \K }
+\newcommand{\scalarlst}[2]{ \ulstp{#1}{#2} \in \K }
 

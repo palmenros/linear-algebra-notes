@@ -6,31 +6,136 @@
 
 \section{Notación}
 
-¿Explicar aquí notación del tal que? ¿Explicar aquí la notación del subset (significa subseteq realmente)?
+¿Explicar aquí notación del tal que? ¿Explicar aquí la notación del subset (significa subseteq realmente)? ¿Explicar aquí que los superíndices no son potencias?
 
 \section{Cuerpos}
 
-Sea $\K$ un cuerpo abeliano de característica distinta de 2.
+Para formalizar el concepto de espacio vectorial, deberemos antes formalizar el conjunto de escalares, es decir, un conjunto ``de dimensión uno'', signifique lo que signifique eso, que podremos utilizar para multiplicar (``escalar'') vectores. Habitualmente usaremos $\R$ o $\Complex$, pero en esta sección vamos a intentar extraer las propiedades relevantes de estos dos conjuntos para definir una estructura algebraica abstracta, el \textit{cuerpo}, del que únicamente conoceremos sus propiedades.
 
-$\dlstp{\vx}{p}{i} = \lspan{H} \neq \emptyset$
+Informalmente, las propiedades más relevantes son la existencia de las operaciones suma y multiplicación, que estas sean algebraicamente cerradas
+(es decir, que al sumar o multiplicar dos elementos del cuerpo obtengamos otro elemento del cuerpo), que cumplan las propiedades asociativa, conmutativa
+\footnote{En ocasiones se distinguen a los cuerpos que cumplen la propiedad conmutativa como \textit{cuerpos abelianos}, en este texto todos los cuerpos
+ serán conmutativos} y distributiva, que existan elementos neutros (0 para la suma y 1 para la multiplicación), que exista el concepto de \textit{división} (es decir, que cada elemento tenga un inverso multiplicativo), el concepto de \textit{resta} (es decir, que cada elemento tenga un opuesto aditivo).
 
+Analicemos ahora la definición formal.
 
-$\exists a \in \K \st$
+\begin{definition}[Cuerpo]
+    Decimos que $\K$ es un cuerpo si existen dos aplicaciones $+:\K \times \K \to \K$, $\cdot:\K \times \K \to \K$ llamadas respectivamente suma y multiplicación que satisfacen las siguientes propiedades:
+    \begin{enumerate}
+        \item Asociatividad de la suma y multiplicación: $a+(b+c)=(a+b)+c$, $a\cdot(b\cdot c)=(a\cdot b)\cdot c$
+        \item Conmutatividad de la suma y multiplicación: $a+b=b+a$, $a\cdot b = b \cdot a$
+        \item Distributividad de la multiplicación sobre la suma: $a \cdot (b+c) = (a \cdot b) + (a \cdot c)$
+        \item Elemento neutro para la suma: $\exists 0 \in \K \st \forall a \in \K, \spc a+0=a$
+        \item Elemento identidad para la multiplicación:  $\exists 1 \in \K \st \forall a \in \K, \spc a\cdot 1=a$
+        \item \label{cuerpo_opuesto} Opuesto aditivo: $\forall a \in \K, \spc \exists {(-a)} \in \K \st a + (-a) = 0 $.
+        \item \label{cuerpo_inverso} Inverso multiplicativo: $\forall a \neq 0 \in \K, \spc \exists {(a^{-1})} \in \K \st a \cdot (a^{-1}) = 1$
+    \end{enumerate}    
+\end{definition}
+
+\begin{notation}
+    En las propiedades \ref{cuerpo_opuesto} y \ref{cuerpo_inverso} de los opuestos e inversos, hemos realizado un pequeño abuso de notación por motivos de claridad. Lo que realmente indica la propiedad es que para cualquier $a \in \K$ existe otro elemento $b_a \in \K$ (indicamos con el subíndice que depende de $a$) tal que $a + b = 0$. Denotamos al elemento $b_a$ como $-a$. Análogamente hacemos lo propio con el inverso multiplicativo. 
+\end{notation}
+
+\begin{remark}
+    Sea cual sea el cuerpo, contiene a todos los números naturales ya que si $n \in \N \implies n = 1 + 1 + \dots + 1 \in \K$ porque cada uno de los $1$ pertenece a $\K$, por lo que la suma pertenece también.
+\end{remark}
+
+Con esta definición de cuerpo hemos ampliado significativamente el rango de conjuntos que podemos usar. Sin embargo, surgen algunos casos patológicos, como por ejemplo $\Z_2 = \set{0, 1}$, el cuerpo de los enteros módulo 2 (es decir, se ejecuta la aritmética usualmente y finalmente colapsamos los pares al 0 y los impares al 1). Se deja como ejercicio al lector demostrar que efectivamente $\Z_2$ es un cuerpo (de hecho, $\Z_p$ es un cuerpo para todo $p$ primo, algo fuera del alcance de este texto). La patología de $\Z_2$ radica en que $1+1=0$. A menudo querremos dividir entre 2 en variadas demostraciones, por lo que impondremos un requisito especial a los cuerpos que utilizaremos. Para ello, debemos introducir la definición de \textit{característica}.
 
 \begin{definition}
-    Decimos que $\K$ es un cuerpo abeliano si cumple las siguientes propiedades en $\set{u : v \in V}$
+    Llamamos característica de $\K$ al mínimo número de veces que es necesario sumar el elemento identidad 1 en una suma para obtener el elemento neutro 0. Es decir, la característica es el entero positivo $n$ más pequeño tal que:
+    \[
+        \underbrace{1+\dots+1}_{n\, \, \mathrm{sumandos}} = 0
+    \]  
+\end{definition}
+
+A partir de ahora, salvo que mencionemos expresamente lo contrario, siempre hablaremos de cuerpos $\K$ de característica distinta de 2 (es decir, $1+1 \ne 0$).
+
+\section{Espacios vectoriales}
+
+Al igual que hicimos con los cuerpos, vamos a definir los espacios vectoriales usando únicamente las propiedades que lo definen. Más adelante relacionaremos esta definición con el concepto intuitivo de espacio vectorial utilizando coordenadas.
+
+Al contrario que hicimos con los cuerpos, para definir un espacio vectorial necesitaremos un cuerpo $\K$ de característica distinta de 2, que utilizaremos para multiplicar los vectores, por lo que el cuerpo aparecerá en la definición de espacio vectorial.
+
+\begin{definition}[Espacio vectorial]
+    \label{vector_space_definition}
+    Un conjunto $V \neq \emptyset$ es un espacio vectorial sobre $\K$ (también diremos que es un $\K$-espacio vectorial) si existen las siguientes operaciones en $V$ (suma y multiplicación por escalar) 
+    
+    \begin{multicols}{2}
+        \noindent
+        \begin{align*} +: V \times V &\to V \\
+                (\vx, \vy) &\mapsto \vx + \vy
+        \end{align*}
+        \begin{align*}
+            \cdot: \K \times V &\to V \\
+                (a, \vx) &\mapsto a \vx
+        \end{align*}
+    \end{multicols}
+
+    y satisfacen las siguientes propiedades:
 
     \begin{enumerate}
-        \item $0 \in \K$ 
+        \item Conmutatividad de la suma: $\forall \vx, \vy \in V, \spc \vx + \vy = \vy + \vx$
+        \item Asociatividad de la suma: $\forall \vx, \vy, \vz \in V, \spc \vx + (\vy + \vz) = (\vx + \vy) + \vz$
+        \item Elemento neutro: $\exists \zv \in V \st \forall \vx \in V, \spc \vx + \zv = \vx$
+        \item Elemento opuesto: $\forall \vx \in V, \spc \exists {({-x})} \in V \st  \vx + (-\vx) = \zv$
+        \item Distributiva vectorial: $\forall a \in \K, \spc \forall \vx, \vy \in V, \spc a(\vx + \vy) = a\vx + a \vy$
+        \item Distributiva escalar: $\forall a, b\in \K, \spc \forall \vx \in V, \spc (a+b)\vx = a\vx + b\vx$ 
+        \item Asociativa: $\forall a, b \in \K, \spc \forall \vx \in V, \spc a \cdot (b \cdot \vx) = (a\cdot b) \cdot \vx $
+        \item \label{espacio_vectorial_unidad} Elemento unidad: $\forall \vx \in V, \spc 1 \cdot \vx = \vx$ 
     \end{enumerate}
 
-    \begin{theorem}[Teorema de Cauchy]
-        Teorema de Cauchy.        
-    \end{theorem}
-    \begin{proof}
-        Esto es la demostración
-    \end{proof}
-
 \end{definition}
+
+\begin{remark}
+    Es importante distinguir el elemento neutro $0 \in \K$ del cuerpo escalar, del elemento neutro $\zv \in V$ del espacio vectorial, ya que uno es un vector y otro un escalar. Sin embargo, el elemento identidad $1 \in \K$ de la propiedad \ref{espacio_vectorial_unidad} sí que es un escalar (se suman vectores, y se multiplican vectores con escalares).  
+\end{remark}
+
+\begin{notation}
+    Si $V$ es un \kvspace, llamaremos a los elementos de V \textit{vectores} y a los elementos de $\K$ escalares.
+\end{notation}
+
+A partir de ahora, si no indicamos otra cosa, $V$ será un \kvspace, siendo $\K$ un cuerpo de característica distinta de 2.
+
+Es posible que esta definición abstracta de espacio vectorial parezca al lector algo árida, sin embargo es una herramienta muy potente que nos permitirá desarrollar una teoría que se puede aplicar a cualquier conjunto que satisfaga la definición de espacio vectorial, no únicamente a $\K^n$. Ejemplos de espacios vectoriales muy útiles en las matemáticas son los polinomios $\K[x]$ \footnote{Denotaremos como $\K[x]$ el conjunto de polinomios de cualquier grado sobre la variable $x$, es decir, polinomios de la forma, $a_n x^n + \dots + a_1 x + a_0$ con $a_i \in \K \spc \forall i \in {1, \dots, n}$}, las funciones continuas, las soluciones de ecuaciones diferenciales lineales, etc. Si desarrollamos todo desde las propiedades de espacio vectorial, podremos aplicar toda la teoría que desarrollemos a todos esos espacios vectoriales y muchos otros, sin tener que distinguir casos durante el desarrollo de la teoría.
+
+A pesar de la potencia de esta aproximación a la definición de espacio vectorial, debemos demostrar incluso las cosas más nimias desde las propiedades. Comenzamos demostrando algunas propiedades inmediatas.
+
+\begin{proposition}
+    Sea $V$ un \kvspace. Entonces, las siguientes propiedades son ciertas:
+    \begin{enumerate}
+        \item $a \cdot \zv = \zv \spc \forall a \in \K$
+        \item $a(-\vx) = -a\cdot \vx \spc \forall a \in \K$
+        \item $0 \cdot \vx = \zv \spc \forall \vx \in V$
+        \item \label{propiedad_cuatro_espacios_vectoriales} $(-a)\cdot \vx = -a\vx$
+        \item Si $\vx \ne 0$, entonces $a \cdot \vx = \zv \implies a = 0$
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}[wide, labelwidth=0pt, labelindent=0pt]
+        \item Primero observamos que $a\cdot \zv = a(\zv + \zv) = a \cdot \zv + a \cdot \zv $. Restando a ambos lados $a\cdot \zv$ obtenemos que 
+            \[\zv = a\cdot \zv + (-a\cdot \zv) = (a \cdot \zv + a \cdot \zv) + (-a \cdot \zv) =  a \cdot \zv + \underbrace{(a \cdot \zv + (-a \cdot \zv))}_{\zv} = a \cdot \zv \]
+        \item Primero nos percatamos de que $\zv = a \cdot \zv = a(\vx + (-\vx)) = a\vx +a\cdot(-\vx)$. Como $\zv$ es igual a dicha expresión, podemos sustituir la expresión de la derecha en cualquier lugar en el que aparezca $\zv$ por lo que
+         \[ -a\vx = -a\vx + \zv = -a\vx + (a\vx + a(-\vx)) = \underbrace{(-a\vx + a\vx)}_{\zv} + a(-\vx) = a(-\vx) \] 
+        \item En primer lugar vemos que $0 \cdot \vx = (0+0)\vx = 0 \cdot \vx + 0 \cdot \vx$. De nuevo, podremos sustituir eso en la siguiente ecuación
+        \[\zv  = 0 \cdot \vx +(-0\cdot \vx) = (0\cdot \vx + 0\cdot \vx) + (-0\cdot \vx) =  0\cdot \vx + \underbrace{(0\cdot \vx + (-0\cdot \vx))}_{\zv} = 0\cdot\vx\]
+        \item Observamos que $\zv = 0 \cdot \vx = (a + (-a))\vx = a\vx + (-a)\vx$. Sumar $\zv$ es equivalente a no hacer nada, por lo que podremos sumar la expresión de la derecha sin cambiar ningún vector
+        \[-a\vx = -a\vx + (a\vx + (-a)\vx) = \underbrace{(-a\vx + a\vx)}_{\zv} + (-a)\vx = (-a)\vx \]
+        \item Lo demostraremos por reducción al absurdo. Supongamos que $a \neq 0$, entonces $\frac{1}{a} \in \K$. Por tanto
+        \[\vx = \underbrace{\left(\frac{a}{a} \right)}_{1} \vx = \frac{1}{a} (a \cdot \vx) = \frac{1}{a} \cdot \zv = \zv\]
+        Hemos llegado a que $\vx = 0$, lo que es una contradicción.
+    \end{enumerate}
+\end{proof}
+
+\begin{notation}
+    Utilizaremos la notación usual en la que restar significa sumar el opuesto, es decir, $\vx - \vy = \vx + (-\vy)$
+\end{notation}
+
+\begin{remark}
+    Si particularizamos la propiedad \ref{propiedad_cuatro_espacios_vectoriales} para $a=1$, obtenemos que $-\vx = (-1)\vx$, por lo que para obtener el vector opuesto basta con multiplicar por el opuesto del escalar $1$ (es decir, por $-1$).
+\end{remark}
+
+\section{Subespacios vectoriales}
 
 \end{document}
