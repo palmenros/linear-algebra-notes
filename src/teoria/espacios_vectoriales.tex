@@ -6,7 +6,7 @@
 
 \section{Notación}
 
-¿Explicar aquí notación del tal que? ¿Explicar aquí la notación del subset (significa subseteq realmente)? ¿Explicar aquí que los superíndices no son potencias?
+¿Explicar aquí notación del tal que (aunque estoy poniendo tal que todo el rato con palabras)? ¿Explicar aquí la notación del subset (aunque estoy intentando utilizar todo el rato subseteq)? ¿Explicar aquí que los superíndices no son potencias? ¿Introducción a la importancia del álgebra lineal?
 
 \section{Cuerpos}
 
@@ -33,7 +33,7 @@ Analicemos ahora la definición formal.
 \end{definition}
 
 \begin{notation}
-    En las propiedades \ref{cuerpo_opuesto} y \ref{cuerpo_inverso} de los opuestos e inversos, hemos realizado un pequeño abuso de notación por motivos de claridad. Lo que realmente indica la propiedad es que para cualquier $a \in \K$ existe otro elemento $b_a \in \K$ (indicamos con el subíndice que depende de $a$) tal que $a + b = 0$. Denotamos al elemento $b_a$ como $-a$. Análogamente hacemos lo propio con el inverso multiplicativo. 
+    En las propiedades \ref{cuerpo_opuesto} y \ref{cuerpo_inverso} de los opuestos e inversos, hemos realizado un pequeño abuso de notación por motivos de claridad. Lo que realmente indica la propiedad es que para cualquier $a \in \K$ existe otro elemento $b_a \in \K$ (indicamos con el subíndice que depende de $a$) tal que $a + b_a = 0$. Denotamos al elemento $b_a$ como $-a$. Análogamente hacemos lo propio con el inverso multiplicativo. 
 \end{notation}
 
 \begin{remark}
@@ -77,8 +77,8 @@ Al contrario que hicimos con los cuerpos, para definir un espacio vectorial nece
     \begin{enumerate}
         \item Conmutatividad de la suma: $\forall \vx, \vy \in V, \spc \vx + \vy = \vy + \vx$
         \item Asociatividad de la suma: $\forall \vx, \vy, \vz \in V, \spc \vx + (\vy + \vz) = (\vx + \vy) + \vz$
-        \item Elemento neutro: $\exists \zv \in V \st \forall \vx \in V, \spc \vx + \zv = \vx$
-        \item Elemento opuesto: $\forall \vx \in V, \spc \exists {({-x})} \in V \st  \vx + (-\vx) = \zv$
+        \item \label{espacio_vectorial_neutro} Elemento neutro: $\exists \zv \in V \st \forall \vx \in V, \spc \vx + \zv = \vx$
+        \item \label{espacio_vectorial_opuesto} Elemento opuesto: $\forall \vx \in V, \spc \exists {({-x})} \in V \st  \vx + (-\vx) = \zv$
         \item Distributiva vectorial: $\forall a \in \K, \spc \forall \vx, \vy \in V, \spc a(\vx + \vy) = a\vx + a \vy$
         \item Distributiva escalar: $\forall a, b\in \K, \spc \forall \vx \in V, \spc (a+b)\vx = a\vx + b\vx$ 
         \item Asociativa: $\forall a, b \in \K, \spc \forall \vx \in V, \spc a \cdot (b \cdot \vx) = (a\cdot b) \cdot \vx $
@@ -137,5 +137,183 @@ A pesar de la potencia de esta aproximación a la definición de espacio vectori
 \end{remark}
 
 \section{Subespacios vectoriales}
+
+En matemáticas es muy común querer trabajar con subconjuntos de un conjunto más grande. Habrá ocasiones en las que nos convenga trabajar por ejemplo con rectas o planos en vez de con el espacio vectorial total. Sin embargo, queremos que esos subconjuntos sigan teniendo la estructura de espacio vectorial, para poder aplicar a ellos también toda la teoría que estamos desarrollando. Nace de ahí el concepto de \textit{subespacio vectorial}, que informalmente es un subconjunto que con las \textbf{operaciones inducidas} del espacio vectorial que le contiene, sigue siendo a su vez un espacio vectorial. Es muy importante que las operaciones sigan siendo las mismas, es decir, la suma es la misma que en el espacio vectorial \textit{ambiente} (el espacio vectorial que lo contiene), para después poder juntar y usar varios subespacios vectoriales a la vez.
+
+Para que las operaciones inducidas puedan ser efectivamente las operaciones de un espacio vectorial, estas deben ser cerradas. Es decir, la suma de vectores en el subespacio vectorial debe de seguir estando en el subespacio vectorial, y la multiplicación de un vector del subespacio por un escalar debe seguir estando en el subespacio. Esto es una condición necesaria para que un subconjunto sea subespacio vectorial, y es tan importante que hasta merece nombre.
+
+\begin{definition}
+    Un subconjunto no vacío $L\subseteq V$ es parte estable si verifica:
+    \begin{enumerate}
+        \item $\forall \vx, \vy \in L \implies \vx + \vy \in L$
+        \item $\forall \vx \in L, \spc \forall a \in \K \implies a\cdot \vx \in L$
+    \end{enumerate}
+\end{definition}
+
+Estamos ahora en condiciones de definir qué es un subespacio vectorial (sabiendo que ser parte estable es condición necesaria).
+
+\begin{definition}[Subespacio vectorial]
+    Una parte estable $L$ de $V$ es un subespacio vectorial de $V$ si $L$ con las operaciones inducidas por las de $V$ en $l$ es un \kvspace.
+\end{definition}
+
+\begin{remark}
+    Las operaciones inducidas por $V$ en $L$ están bien definidas únicamente si $L$ es parte estable, y son las siguientes:
+    \begin{multicols}{2}
+        \noindent
+        \begin{align*} +: L \times L &\to L \\
+                (\vx, \vy) &\mapsto \vx + \vy \in L
+        \end{align*}
+        \noindent
+        \begin{align*}
+            \cdot: \K \times L &\to L \\
+                (a, \vx) &\mapsto a \vx \in L
+        \end{align*}
+    \end{multicols} 
+\end{remark}
+
+De hecho, ser parte estable no es solamente condición necesaria, sino que también es condición suficiente.
+
+\begin{proposition}
+    $L$ es parte estable si y solamente si $L$ es un subespacio vectorial
+\end{proposition}
+
+\begin{proof}
+    Solamente debemos demostrar la suficiencia. Sea $L \subseteq V$ parte estable. Únicamente debemos demostrar las propiedades \ref{espacio_vectorial_neutro} y \ref{espacio_vectorial_opuesto} de la definición \ref{vector_space_definition} de espacio vectorial para ver que $L$ es un \kvspace, ya que el resto de propiedades se cumplen en $V$, por lo que particularmente se cumplen en $L$.
+    
+    \begin{enumerate}
+        \setcounter{enumi}{3}
+        \item Sea $\vx \in L$, entonces $-\vx = \underbrace{(-1)}_{\in \K} \cdot \underbrace{\vx}_{\in V} \in L$. Pertenece a $L$ por ser $L$ parte estable.
+        \setcounter{enumi}{2}
+        \item Sea $\vx \in L$, entonces $\underbrace{\vx}_{\in L} + \underbrace{(-\vx)}_{\in L} = \zv \in L$. De nuevo pertenece a $L$ por ser $L$ parte estable.
+    \end{enumerate}
+    $ $
+\end{proof}
+
+Las operaciones de las que disponen los espacios son la suma de vectores y multiplicación por escalares, que usualmente combinaremos para dar lugar a las \textit{combinaciones lineales}
+
+\begin{definition}[Combinación lineal]
+    \label{definicion_combinacion_lineal}
+    Sean $p \in \N, \spc \dlst{\vx}{p} \in V, \spc \ulst{a}{p} \in \K$. Si $\vx = \lincomb{a}{x}{p}$, diremos que $\vx$ es combinación linear de $\dlst{x}{p}$ con coeficientes $\ulst{a}{p}$.
+
+\end{definition}
+
+\begin{remark}
+    En la definición \ref{definicion_combinacion_lineal} los superíndices no indican exponentes ni potencias, sino que se usan para distinguir distintos escalares. Como regla general, indexaremos los escalares por superíndices y los vectores con subíndices por motivos de claridad.
+\end{remark}
+
+Las combinaciones lineales son especialmente importantes porque juntan de manera concisa las sumas y multiplicaciones por escalares. Permiten usualmente expresar las propiedades que normalmente se deberían enunciar por separado en una sola propiedad, utilizando combinaciones lineales en vez de sumas y multiplicaciones. 
+
+El primer ejemplo de esto es que los subespacios vectoriales son los conjuntos que continenen a las combinaciones lineales de sus vectores.
+
+
+\begin{proposition}
+    $\emptyset \ne L \subseteq V$ es subespacio vectorial $\iff \forall p \in N, \spc \forall \dlst{x}{p} \in L, \spc \forall \ulst{a}{p} \in \K, \spc \lincomb{a}{x}{p} \in L$.
+\end{proposition}
+
+\begin{proof}
+    Veamos las dos implicaciones por separado.
+    \begin{enumerate}
+        \item[\protect\fbox{$\Rightarrow$}] Supongamos que $L$ es subespacio vectorial y sea $p \in \N$ \\
+        Sean $\dlst{x}{p} \in L, \spc \ulst{a}{p} \in \K, \spc \lincomb{a}{x}{p} \in L$. Entonces, $a^1 \vx_1, a^2\vx_2, \dots, a^p\vx_p \in L$ por ser $L$ subespacio vectorial, y de nuevo, por ser $L$ subespacio vectorial se da que $\lincomb{a}{x}{p} \in L$. 
+        \item[\protect\fbox{$\Leftarrow$}] Si $L$ contiene las combinaciones lineales, particularmente contiene cada suma y cada multiplicación por escalar, así que es parte estable y por tanto espacio vectorial.
+    \end{enumerate} 
+\end{proof}
+
+\section{Bases de espacios vectoriales}
+
+No todos los subconjuntos son espacios vectoriales, pero nos puede interesar encontrar un subespacio vectorial que contenga a determinado conjunto sin que este sea el total. Después de introducir las combinaciones lineales en la sección anterior, no es descabellada la idea de definir el conjunto de todas las combinaciones lineales de otro conjunto.
+
+\begin{definition}
+    Sea $\emptyset \neq H \subseteq V$ un subconjunto de $V$ que puede ser o no ser un espacio vectorial. Definimos $\lspan{H}$ como el conjunto de todas las combinaciones lineales de $H$, es decir,
+    \[
+        \lspan{H} = \set{\lincomb{a}{x}{p} : p \in \N, \spc \dlst{x}{p} \in L, \spc \ulst{a}{p} \in \K}
+    \]
+\end{definition}
+
+En las siguientes proposiciones veremos que $\lspan{H}$ efectivamente contiene a $H$ y que efectivamente es un subespacio vectorial.
+
+\begin{proposition}
+    $H \subseteq \lspan{H}$
+\end{proposition}
+
+\begin{proof}
+    Si $\vx \in H \implies \underbrace{1}_{\in \K} \cdot \underbrace{\vx}_{\in H} = \vx \in \lspan{H} \implies H \subseteq \lspan{H}$
+    $ $.
+\end{proof}
+
+\begin{proposition}
+    $\lspan{H}$ es un subespacio vectorial de $V$.
+\end{proposition}
+
+\begin{proof}
+    Veamos que $\lspan{H}$ es parte estable.
+
+    Sean $\vx, \vy \in \lspan{H} \Rightarrow \exists p, q \in \N, \spc \dlst{\vx}{p}, \dlst{\vy}{q} \in H, \, \, \ulst{a}{p}, \ulst{b}{q} \in \K $
+    tal que 
+    \begin{align*}
+        \vx &= \lincomb{a}{x}{p} \\
+        \vy &= \lincomb{b}{y}{q}
+    \end{align*}
+
+    Entonces podemos representar $\vx + \vy$ como
+    
+    \[
+        \vx + \vy = a^1\underbrace{\vx_1}_{\in H}+a^2\underbrace{\vx_2}_{\in H}+\dots+a^p\underbrace{\vx_p}_{\in H} + b^1\underbrace{\vy_1}_{\in H}+b^2\underbrace{\vy_2}_{\in H}+\dots+b^p\underbrace{\vy_p}_{\in H}
+    \]
+
+    Por tanto $\vx + \vy$ es una combinación lineal de vectores de $H$, por lo que $\vx + \vy \in \lspan{H}$. Analizemos ahora el producto por escalar. Sea $a \in \K, \vx \in \lspan{H} \implies \exists p \in \N, \space \exists \dlst{\vx}{p} \in H$ y también $\exists \ulst{a}{p} \in \K \st \vx = \lincomb{a}{x}{p}$.  Multiplicamos a ambos lados por $a$:
+    \[a\cdot \vx = a \left( \lincomb{a}{x}{p} \right) = \underbrace{(a \cdot a^1)}_{\in \K}\underbrace{\vx_1}_{\in H} + \underbrace{(a \cdot a^2)}_{\in \K}\underbrace{\vx_2}_{\in H} + \dots + \underbrace{(a \cdot a^p)}_{\in \K}\underbrace{\vx_p}_{\in H}\]
+
+    Por tanto $a\vx$ es una combinación lineal finita de vectores de $H$, por lo que $a\vx \in \lspan{H}$.
+
+    Concluimos por tanto que $\lspan{H}$ es un subespacio vectorial.
+\end{proof}
+
+De hecho, $\lspan{H}$ no es solamente un subespacio vectorial que contiene a $H$, sino que es el subespacio vectorial más pequeño que contiene a $H$. 
+
+\begin{proposition}
+    Si $L$ es un subespacio vectorial de $V$ tal que $H \subseteq L \implies \lspan{H} \subseteq L$, es decir, $\lspan{H}$ es el subespacio más pequeño de los subespacios vectoriales que contienen a $H$.¡
+\end{proposition}
+
+\begin{proof}
+Sea $\vx \in \lspan{H} \Rightarrow \exists p \in \N, \spc \dlst{x}{p} \in H, \spc \ulst{a}{p} \in \K$ tal que 
+
+\[ \vx = a^1 \underbrace{\vx_1}_{\in H \subseteq L} +  a^2\underbrace{\vx_2}_{\in H \subseteq L} + \dots +  a^p \underbrace{\vx_p}_{\in H \subseteq L} \]
+
+Como cada $\vx_i \in H \subseteq L$, entonces cada $\vx_i \in L$, por lo que $x$ es combinación lineal de vectores de $L$ y por ser $L$ un espacio vectorial, $\vx \in L$. Como esto se da para cada $\vx \in \lspan{H}$, $\lspan{H} \subseteq L$.
+\end{proof}
+
+\subsection{Sistemas generadores y linealmente independientes}
+
+Hasta ahora hemos utilizado $\lspan{H}$ para encontrar un subespacio vectorial conociendo $H$. Sin embargo, podemos utilizarlo a la inversa. Dado un espacio vectorial $V$, si conseguimos expresarlo como $V=\lspan{H}$ para algún $H$ pequeño (por ejemplo, finito), sabemos que podemos expresar todos los vectores de $V$ como combinaciones lineales de vectores de $H$, lo cuál simplifica muchas cuentas.
+
+Introduzcamos algunas definiciones basadas en esta idea.
+
+\begin{definition}[Subespacio generado]
+    Diremos que $\lspan{H}$ es el subespacio vectorial generado por $H$.
+\end{definition}
+
+\begin{definition}[Sistema de generadores]
+    Diremos que $H$ es un sistema de generadores de $V$ si $\lspan{H} = V$.
+\end{definition}
+
+\begin{definition}[Finitamente generado]
+    Diremos que $V$ es finitamente generado o de dimensión finita si existe un sistema de generadores de $V$ formado por un número finitio de elementos, es decir, si
+    \[
+        \exists p \in N, \spc \exists \dlst{x}{p} \in V \st \lspan{\set{\vlst{x}{p}}} = V
+    \]  
+\end{definition}
+
+Ya hemos comentado anteriormente que cuanto más \textit{pequeño} sea $H$, más convenientes resultarán los cálculos, ya que podremos descomponer cualquier vector en una combinación lineal de menores vectores. Si uno de los vectores de $H$ fuese combinación lineal de los otros vectores, entonces no aportaría nada a $\lspan{H}$, podríamos eliminarlo y $\lspan{H'}$ seguiría manteniendose igual, y habríamos conseguido eliminar un vector de $H$. 
+
+De este concepto nace la siguiente definición:
+
+\begin{definition}[Familia linealmente dependiente]
+    
+\end{definition}
+
+\begin{remark}
+    Un único vector es linealmente dependiente solo si es el vector $\zv$, en caso contrario es linealmente independiente. 
+\end{remark}
 
 \end{document}
