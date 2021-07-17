@@ -136,6 +136,35 @@ A pesar de la potencia de esta aproximación a la definición de espacio vectori
     Si particularizamos la propiedad \ref{propiedad_cuatro_espacios_vectoriales} para $a=1$, obtenemos que $-\vx = (-1)\vx$, por lo que para obtener el vector opuesto basta con multiplicar por el opuesto del escalar $1$ (es decir, por $-1$).
 \end{remark}
 
+\begin{example}
+    Veamos varios ejemplos de espacios vectoriales:
+    \begin{itemize}
+        \item Un cuerpo es un espacio vectorial sobre él mismo: $\K$ es un \kvspace.
+        \item $\R$ es un $\Q$-espacio vectorial definiendo la suma y el producto usualmente
+        
+        \begin{multicols}{2}            
+            \noindent\begin{align*}
+                +: \R \times \R &\to \R \\
+                    (a, b) &\mapsto a+b
+            \end{align*}
+            \begin{align*}
+                \cdot: \Q \times \R &\to \R \\
+                    \parens{\frac{p}{q}, a} &\mapsto \frac{p \cdot a}{q}
+            \end{align*}
+        \end{multicols}
+
+        \item Si $n \in \N$, $\K^n$ es un espacio vectorial definiendo la suma de tuplas como la suma elemento a elemento y la multiplicación de una tupla por un escalar como la multiplicación de cada elemento de la tupla por dicho escalar, es decir,
+        \begin{align*} +: \K^n \times \K^n &\to \K^n \\
+                \parens{\parens{\dlst{a}{n}}, \parens{\dlst{b}{n}}} &\mapsto \parens{a_1+b_1, a_2+b_2, \dots, a_n+b_n}
+        \end{align*}
+        \begin{align*}
+            \cdot: \K \times \K^n &\to \K^n \\
+                (\lambda, \parens{\dlst{a}{n}}) &\mapsto \parens{\lambda \cdot a_1, \lambda \cdot a_2, \dots, \lambda \cdot  a_n}
+        \end{align*}
+
+    \end{itemize}
+\end{example}
+
 \section{Subespacios vectoriales}
 
 En matemáticas es muy común querer trabajar con subconjuntos de un conjunto más grande. Habrá ocasiones en las que nos convenga trabajar por ejemplo con rectas o planos en vez de con el espacio vectorial total. Sin embargo, queremos que esos subconjuntos sigan teniendo la estructura de espacio vectorial, para poder aplicar a ellos también toda la teoría que estamos desarrollando. Nace de ahí el concepto de \textit{subespacio vectorial}, que informalmente es un subconjunto que con las \textbf{operaciones inducidas} del espacio vectorial que le contiene, sigue siendo a su vez un espacio vectorial. Es muy importante que las operaciones sigan siendo las mismas, es decir, la suma es la misma que en el espacio vectorial \textit{ambiente} (el espacio vectorial que lo contiene), para después poder juntar y usar varios subespacios vectoriales a la vez.
@@ -304,6 +333,8 @@ Introduzcamos algunas definiciones basadas en esta idea.
     \]  
 \end{definition}
 
+Durante este texto vamos a tratar únicamente con espacios vectoriales finitamente generados, no trataremos espacios vectoriales de dimensión infinita.
+
 Ya hemos comentado anteriormente que cuanto más \textit{pequeño} sea $H$, más convenientes resultarán los cálculos, ya que podremos descomponer cualquier vector en una combinación lineal de menores vectores. Si uno de los vectores de $H$ fuese combinación lineal de los otros vectores, entonces no aportaría nada a $\lspan{H}$, podríamos eliminarlo y $\lspan{H'}$ seguiría manteniendose igual, y habríamos conseguido eliminar un vector de $H$. 
 
 De este concepto nace la siguiente definición:
@@ -446,6 +477,178 @@ Una propiedad muy importante de las familias linealmente independientes, es que 
         A pesar de ser un error relativamente común, si existen 4 vectores linealmente independientes 3 a 3 entre sí, eso no implica que los 4 vectores sean linealmente independientes. Un contraejemplo de esto son los vectores $\set{(1,0,0),(0,1,0),(0,0,1),(1,1,1)}$ de $\R^3$.
     \end{remark}
 
-\section{Teoremas de la base}
+\subsection{Teoremas de la base}
+
+Hemos visto que si un conjunto de vectores es sistema generador, podemos expresar cualquier vector del espacio vectorial como una combinación lineal de elementos del conjunto. Además, si ese conjunto fuese linealmente independiente, podríamos expresar de manera única esa combinación lineal, lo cual es increíblemente útil.
+
+\begin{definition}[Base]
+    Una familia de vectores $\set{\vlst{u}{n}} \subseteq V$ es una base de $V$ si son un sistema de generadores de $V$ y son linealmente independientes.
+\end{definition}
+
+Como hemos dicho antes, cualquier vector se puede expresar de manera única como combinación lineal de vectores de la base. Más formalmente, si $\set{\vlst{u}{n}}$ es una base de $V$, Entonces
+$$\forall \vx \in V, \spc \exists! \, \slst{a}{n} \in \K \st \vx = \lincomb{a}{u}{n}$$ 
+
+\begin{remark}
+    Una vez fijada una base, cada vector queda únicamente representado por los $n$ coeficientes únicos  $\slst{a}{n} \in \K$ de la combinación lineal. Podemos observar estos coeficientes como una tupla $\parens{\slst{a}{n}} \in \K^n$. Esto significa que independientemente de lo extraño que sea el espacio vectorial con el que estemos tratando, una vez fijada una base podemos trabajar con él \textit{como si fuera} $\K^n$. Formalmente esto se expresa creando una biyección $\phi$ desde $V$ hasta $\K^n$
+    \begin{align*}
+        \phi: V &\to \K^n \\
+            \vx &\mapsto \parens{\slst{a}{n}}
+    \end{align*} 
+    siendo $\slst{a}{n}$ los únicos escalares tal que $\vx = \lincomb{a}{u}{n}$.
+\end{remark}
+
+Gracias a las buenas propiedades de las bases, sería muy afortunado que todo espacio vectorial finitamente generado tuviese una. Eso es precisamente lo que nos dice el primer teorema de la base.
+
+\begin{theorem}[Primer teorema de la base]
+    Sea $V \ne \set{\zv}$ finitamente generado, entonces $\exists \set{\vlst{u}{n}}$ base de $V$ 
+\end{theorem}
+
+\begin{proof}
+    Si $V \ne \set{\zv}$ es finitamente generado, $\exists p \in \N, \spc \exists \vlst{x}{p} \in V$ tal que $\vlst{x}{p}$ es sistema de generadores de $V$. Pueden darse dos casos, si $\set{\vlst{x}{p}}$ son linealmente independientes, entonces son base y hemos demostrado lo que queríamos. En caso contrario, son linealmente dependientes, es decir
+    \[
+        \exists i \in \set{1, \dots, p} \st \vx_i \in \lspan{\set{\vlst{x}{i-1}, \vx_{i+1}, \dots, \vx_{p}}}
+    \]
+    Veamos que entonces $\set{\vx_{1}, \dots,  \vx_{i-1}, \vx_{i+1}, \dots, \vx_{p}}$ también es sistema de generadores de $V$. $\vx_i$ es por tanto combinación lineal del resto, por lo que $\exists \islst{a}{p}{i} \in \K$ tal que $\vx_i = \ilincomb{a}{x}{p}{i}$. Por ser $\set{\vlst{x}{p}}$ sistema de generadores, $\forall \vx \in V, \spc \exists \cslst{b}{p}{i} \in \K $ tal que 
+    \begin{align*}
+        \vx &= \clincomb{b}{x}{p}{i} \\
+            &= b^1\vx_{1} + \dots + b^{i-1} \vx_{i-1} + b^i \parens{\ilincomb{a}{x}{p}{i}} + \\
+            &\hspace{11.35mm} + b^{i+1} \vx_{i+1} + \dots + b^p \vx_p = \\
+            &= \parens{b^1 + b^i a^1}\vx_{1} + \dots + \parens{b^{i-1} + b^i a^{i-1}}\vx_{i-1} + \parens{b^{i+1} + b^i a^{i-1}}\vx_{i+1} + \dots + \parens{b^p + b^i a^p}\vx_{p}
+    \end{align*}
+    Por tanto, podemos expresar cada $\vx$ como combinación lineal de $\set{\ivlst{x}{p}{i}}$, por lo que $\set{\ivlst{x}{p}{i}}$ es sistema de generadores de $V$. 
+    Podemos repetir este método hasta que todos los vectores sean linealmente independientes. En el peor caso, aplicando este método $p-1$ veces, llegaremos a $\set{\vx_j}$. Como $V \ne \set{\zv}$, entonces $\vx_j \ne \zv \Rightarrow \set{\vx_j}$ es linealmente independiente.
+\end{proof}
+
+Demostraremos ahora un teorema, que a pesar de parecer tener un enunciado un tanto árido, nos permitirá deducir con facilidad que todas las bases de un espacio vectorial finitamente generado poseen el mismo número de vectores.
+
+\begin{theorem}[Steinitz]
+    Sea $\set{\vlst{x}{p}}$ un sistema de generadores de $V$ y consideremos $\set{\vlst{y}{q}}$ linealmente independientes. Entonces $q \le p$ y se puede obtener un nuevo sistema de generadores sustituyendo $q$ de los vectores $\vx_i$ por los $q$ vectores $\vlst{y}{q}$.
+\end{theorem}
+
+\begin{proof}
+    Demostremos primero la segunda parte por inducción.
+    \begin{enumerate}[itemindent=30pt]
+        \item[\protect\fbox{Caso base}] $ $ \linebreak
+    \end{enumerate}
+    Como $\vy_1 \in V$ y $\set{\vlst{x}{p}}$ es sistema de generadores, entonces $\exists \slst{a}{p} \in \K$ tal que $\vy_1 = \lincomb{a}{x}{p}$. Como $\vy_1$ forma parte de una familia de vectores l.i., entonces $\parens{\slst{a}{p}} \ne \parens{0, 0, \dots, 0}$, es decir, no todas las $a^i$ son nulas. Sin pérdida de generalidad (podemos permutar los vectores $\vx_j$ para llevar el escalar no nulo hasta $a^1$), suponemos que $a^1\ne 0$. Por tanto,
+    \begin{align*}
+        \frac{1}{a^1}\vy_1 &= \frac{1}{a^1} \parens{\lincomb{a}{x}{p}} \\
+                        &= \underbrace{\frac{a^1}{a^1}}_{1}\vx_1 + \frac{a^2}{a^1}\vx_2 + \dots + \frac{a^p}{a^1}\vx_p 
+    \end{align*}
+    Despejamos $\vx_1$ restando
+    \[
+        \vx_1 = \frac{1}{a^1}\vy_{1} + \frac{-a^2}{a^1}\vx_2 + \dots + \frac{-a^p}{a^1}\vx_p
+    \]
+    Veamos que $\set{\vy_1, \vx_2, \dots, \vx_p}$ es sistema de generadores de $V$. $\forall \vx \in V, \spc \exists \slst{\alpha}{p} \in \K$ tal que 
+    \begin{align*}
+        \vx &= \lincomb{\alpha}{x}{p} \\
+            &= \alpha^1 \parens{\frac{1}{a^1}\vy_{1} + \frac{-a^2}{a^1}\vx_2 + \dots + \frac{-a^p}{a^1}\vx_p} + \alpha^2\vx_2 + \dots + \alpha^p\vx_p \\
+            &= \frac{\alpha^1}{a^1}\vy_1 + \parens{\alpha^2 - \frac{a^2 \alpha^1}{a^1}}\vx_2 + \dots + \parens{\alpha^p - \frac{a^p \alpha^1}{a^1}}\vx_p
+    \end{align*}
+    Por tanto $\set{\vy_1, \vx_2, \dots, \vx_p}$ es sistema de generadores de $V$.
+    \begin{enumerate}[itemindent=50pt]
+        \item[\hspace{20mm}\protect\fbox{Paso inductivo}] $ $ \linebreak
+    \end{enumerate}
+    Supongamos que para $i < \min \braces{p, q}$ tenemos que $\set{\vy_1, \vy_2, \dots, \vy_{i}, \vx_{i+1}, \dots, \vx_p}$ es sistema de generadores de $V$. Como $\vy_{i+1} \in V, \spc \exists \slst{a}{i}, b^{i+1}, \dots, b^q \in \K$ tales que 
+    \[
+        \vy_{i+1} = \lincomb{a}{y}{i} + b^{i+1}\vx_{i+1} + \dots + b^p \vx_p 
+    \]
+    De nuevo, por formar $\vy_{i+1}$ parte de una familia l.i., $\parens{b^{i+1}, \dots, b^p} \ne \parens{0, \dots, 0}$. Sin pérdida de generalidad, supongamos que $b^{i+1} \ne 0$, por lo que
+    \begin{align*}
+        \frac{1}{b^{i+1}}\vy_{i+1} &= \frac{1}{b^{i+1}} \parens{\lincomb{a}{y}{i} + b^{i+1}\vx_{i+1} + \dots + b^p \vx_p} \\
+                                   &= \frac{a^1}{b^{i+1}} \vy_1 + \frac{a^2}{b^{i+1}} \vy_2 + \dots + \frac{a^i}{b^{i+1}}\vy_i + \underbrace{\frac{b^{i+1}}{b^{i+1}}}_{1}\vx_{i+1} + \dots + \frac{b^{p}}{b^{i+1}}\vx_{p} 
+    \end{align*}
+    Despejando $\vx_{i+1}$
+    \[
+        \vx_{i+1} = \frac{-a^1}{b^{i+1}}\vy_1 + \frac{-a^2}{b^{i+1}}\vy_2 + \dots + \frac{-a^i}{b^{i+1}}\vy_i + \frac{1}{b^{i+1}} \vy_{i+1} + \frac{-b^{i+2}}{b^{i+1}}\vx_{i+2} +  \dots + \frac{-b^p}{b^{i+1}}\vx_p
+    \]
+    Vamos a demostrar que $\set{\vy_1, \vy_2, \dots, \vy_{i}, \vy_{i+1}, \dots, \vx_p}$ es sistema de generadores de $V$. Sea $\vx \in V, \spc \exists \slst{\alpha}{i},\beta^{i+1}, \dots, \beta^p \in \K$ tal que 
+    \begin{align*}
+        \vx &= \lincomb{\alpha}{y}{i} + \beta^{i+1}\vx_{i+1}+\dots  + \beta^p\vx_p \\
+            &= \lincomb{\alpha}{y}{i} + \\
+            &\hspace{5mm} + \beta^{i+1} \parens{\frac{-a^1}{b^{i+1}}\vy_1 + \frac{-a^2}{b^{i+1}}\vy_2 + \dots + \frac{-a^i}{b^{i+1}}\vy_i + \frac{1}{b^{i+1}} \vy_{i+1} + \frac{-b^{i+2}}{b^{i+1}}\vx_{i+2} +  \dots + \frac{-b^p}{b^{i+1}}\vx_p} + \\
+            &\hspace{5mm} + \dots + \beta^p\vx_{p} \\
+            &= \parens{\alpha^1 - \frac{\beta^{i+1}a^1}{b^{i+1}}} \vy_1 + \dots + \parens{\alpha^i - \frac{\beta^{i+1}a^i}{b^{i+1}}}\vy_i + \frac{\beta^{i+1}}{b^{i+1}}\vy_{i+1} + \dots + \parens{\beta^p - \frac{\beta^{i+1}b^p}{b^{i+1}}}\vx_p
+    \end{align*}
+    Por tanto, todos los vectores son combinación lineal de $\set{\vy_1, \vy_2, \dots, \vy_{i}, \vy_{i+1}, \dots, \vx_p}$, por lo que es sistema de generadores.
+    \begin{enumerate}[itemindent=21pt]
+        \item[\hspace{20mm}\protect\fbox{Si $p < q$}] $ $ \linebreak
+    \end{enumerate}
+    Demostramos por último la primera parte del teorema por reducción al absurdo. Supongamos que $p > q$. Sabemos que $\set{\vlst{y}{p}, \vy_{p+1}, \dots, \vy_{q}}$ son linealmente independientes. Como $\set{\vlst{x}{p}}$ es sistema de generadores, sustituyendo como antes, tenemos que $\set{\vlst{y}{p}}$ es sistema de generadores.  Sin embargo, por ser los $\vy_j$ linealmente independientes, $\vy_{i+1} \notin \lspan{\set{\vlst{y}{p}}}$. Hemos llegado a una contradicción, por lo que $p \ge q$.
+\end{proof}
+
+Estamos por fin en condiciones de demostrar que todas las bases tienen el mismo número de elementos.
+
+\begin{corollary}[Segundo teorema de la base]
+    Todas las bases de un espacio vectorial $V \ne {\zv}$ finitamente generado tienen el mismo número de elementos.
+\end{corollary}
+
+\begin{proof}
+    Sean $\mathcal{B} = \set{\vlst{u}{n}}$ y $\mathcal{B'} = \set{\vlst{v}{m}}$ dos bases de $V$. Aplicamos dos veces el teorema de Steinitz:
+    \begin{itemize}
+        \item $\mathcal{B}$ es sistema de generadores y $\mathcal{B'}$ es una familia l.i. Aplicando Steinitz, $m \le n$
+        \item $\mathcal{B'}$ es sistema de generadores y $\mathcal{B}$ es una familia l.i. Aplicando Steinitz, $n \le m$
+    \end{itemize}
+
+    Por tanto, como $n \le m$ y $m \le n$, tenemos que $m = n$
+\end{proof}
+
+Por tanto, el número de elementos de la base es algo inherente al espacio vectorial, y no a cada base, lo que motiva la siguiente definicion.
+
+\begin{definition}[Dimensión]
+    Llamaremos dimensión de $V \ne \set{\zv}$ al número de vectores de cualquier base de $V$. Lo notaremos como $\dim{V}$. Diremos que $\dim{\set{\zv}} = 0$.
+\end{definition}
+
+\begin{remark}
+    Si $\dim{V} = n$ y $\set{\vlst{x}{p}} \subseteq V$ linealmente independientes, aplicando Steinitz tenemos que $p \le n$. Es decir, $\dim{V}$ es el número máximo de vectores que forman una familia linealmente independiente. Análogamente, si $\set{\vlst{x}{p}} \subseteq V$ sistema de geeradores, aplicando Steinitz tenemos que $n \le p$. Es decir, $\dim{V}$ es el mínimo número de vectores que forman un sistema de generadores de $V$. 
+\end{remark}
+
+\begin{example}
+    La dimensión de un espacio puede cambiar dependiendo del cuerpo con el que se considere el espacio vectorial. Por ejemplo $\Complex$ es un $\R$-espacio vectorial y un $\Complex$-espacio vectorial y sus dimensiones son distintas:
+    \begin{itemize}
+        \item $\mathrm{dim}_{\Complex}\parens{\Complex} = 1$, tomando como base $\mathcal{B} = \set{1}$
+        \item $\mathrm{dim}_{\R}\parens{\Complex} = 1$, tomando como base $\mathcal{B'} = \set{1, i}$
+    \end{itemize}
+\end{example}
+
+Siguiendo con este tipo de razonamientos, demostraremos que si tenemos una familia sistema de generadores o linealmente independiente y además tiene el mismo número de elementos que la dimensión, entonces es base.
+
+\begin{corollary}
+    Se cumplen las siguientes afirmaciones:
+    \begin{enumerate}[a)]
+        \item Si $\dim{V} = n$ y $\set{\vlst{u}{n}}$ es una familia linealmente independiente, entonces $\set{\vlst{u}{n}}$ es base de $V$. 
+        \item Si $\set{\vlst{v}{n}}$ es sistema de generadores de $V$, entonces $\set{\vlst{u}{n}}$ es base.
+    \end{enumerate}
+\end{corollary}
+
+\begin{proof}
+    Demostramos individualmente cada afirmación.
+    \begin{enumerate}[a)]
+        \item Si $\dim{V} = n$, entonces $\exists \set{\vlst{x}{n}}$ base (sistema de generadores y linealmente independiente). Podemos sustituir $\set{\vlst{x}{n}}$ por $\set{\vlst{u}{n}}$ y tendremos un nuevo sistema de generadores. Como $\set{\vlst{u}{n}}$ es linealmente independiente, entonces es base.
+        \item Como todos los sistemas de generadores tienen una base dentro y todas las bases tienen $n$ elementos, si $\set{\vlst{v}{n}}$ es sistema de generadores, también es base.
+    \end{enumerate}
+\end{proof}
+
+Intuitivamente, un subespacio vectorial no puede ser más grande que el espacio que lo contiene. Esta afirmación se formaliza en la siguiente proposición.
+
+\begin{proposition}
+    Sea $L \subseteq V$ un subespacio vectorial. Entonces $L$ es finitamente generado y $\dim{L} \le \dim{V}$. Además, $\dim{L}=\dim{V} \iff L = V$.
+\end{proposition}
+
+\begin{proof}
+    Para el además, si $\dim{L} = n$ y $\set{\vlst{x}{n}} \subseteq L \subseteq V$ es base de $L$, entonces los vectores son linealmente independientes. Como además $n = \dim{L} = \dim{V}$, entonces $\set{\vlst{x}{n}}$ es base de $V$. Como $L$ y $V$ tienen la misma base, entonces $L=V=\lspan{\set{\vlst{x}{n}}}$.
+
+    Demostremos ahora la primera parte del teorema.  Se tiene que dar o $L = \zvs$ o $\exists \vx_1 \in L \setminus \zvs$ y $\set{\vx_1} \subseteq L$ l.i. . En el segundo caso, o $L=\lspan{\set{\vx_1}}$ o $\exists \vx_2 \in L \setminus \lspan{\set{\vx_1}}$ y $\set{\vx_1, \vx_2} \subseteq L$ l.i. . De nuevo, en el segundo caso, o $L=\lspan{\set{\vx_1, \vx_2}}$ o $\exists \vx_3 \in L \setminus \lspan{\set{\vx_1, \vx_2}}$ y $\set{\vx_1, \vx_2, \vx_3} \subseteq L$ l.i. Generalizando el argumento, supuestos definidos $\set{\vlst{x}{p}} \subseteq L$ l.i. se tiene que o $L = \lspan{\vlst{x}{p}}$ o $\exists \vx_{p+1} \in L \setminus \set{\vlst{x}{p}, \vx_{p+1}}$ y $\set{\vlst{x}{p}, \vx_{p+1}} \subseteq L \subseteq V$ l.i. Forzosamente debemos acabar como muy tarde al tener $n$ elementos, pues tenemos un conjunto linealmente independiente contenido en $V$, cuya dimensión es $n$, por lo que el número máximo de vectores linealmente independientes es $n$. En el $m \le n$ que acabemos, hemos demostrado que $L = \lspan{\vlst{x}{m}}$, por lo que $\dim{L} = m \le n = \dim{V}$.
+\end{proof}
+
+El último resultado que estudiaremos sobre bases trata sobre la ampliación de un conjunto linealmente independiente (de tamaño menor o igual que la dimensión de $V$) a una base de $V$ añadiendo elementos.
+\begin{theorem}[Teorema de extensión de la base]   
+    Si $\set{\vlst{u}{p}} \subseteq V$ es linealmente independiente, entonces  $\exists \set{\vu_{p+1}, \dots, \vu_n} \subseteq V$ tal que $\set{\vlst{u}{p}, \vu_{p+1}, \dots, \vu_n}$ es base de $V$. Es decir, si $\set{\vlst{u}{p}} \subseteq V$ es base de un subespacio vectorial de $V$, $\exists \set{\vu_{p+1}, \dots, \vu_n} \subseteq V$ tal que $\set{\vlst{u}{p}, \vu_{p+1}, \dots, \vu_n}$ es base de $V$.
+\end{theorem}
+\begin{proof}
+    Sea $\mathcal{B} = \set{\vlst{v}{p}, \vv_{p+1}, \dots, \vv_{n}}$ una base de $V$, por lo que es un sistema de generadores. Por Steinitz, podemos sustituir una familia de vectores linealmente independientes en la base, por lo que $\exists \vu_{p+1}, \dots, \vu_n \in \mathcal{B}$ tal que  $\set{\vlst{u}{p}, \vu_{p+1}, \dots, \vu_n}$ es sistema de generadores de $V$. Como es sistema de generadores y tiene $n = \dim{V}$ elementos, es una base.
+\end{proof}
+
+\section{Operaciones con subespacios vectoriales}
 
 \end{document}

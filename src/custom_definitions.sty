@@ -1,23 +1,77 @@
 \ProvidesPackage{custom_definitions}
 
+% Redefinimos imension
+\renewcommand{\dim}[1]{\mathrm{dim}\parens{#1}}
+
 \newcommand{\K}{\mathbb{K}}
 \newcommand{\zv}{\vec{0}}
 \newcommand{\vx}{\vec{x}}
 \newcommand{\vy}{\vec{y}}
 \newcommand{\vz}{\vec{z}}
+\newcommand{\vu}{\vec{u}}
+\newcommand{\vv}{\vec{v}}
 \newcommand{\st}{\mathrm{\,\, tal \,\, que \,\,}}
+
+%Espacio vectorial nulo
+\newcommand{\zvs}{\set{\zv}}
 
 %Espacio estándar a utilizar después de un para todo o de un existe
 \newcommand{\spc}{\hspace{1.5mm}}
 \newcommand{\kvspace}{$\K$-espacio vectorial}
-
-\newcommand{\lincomb}[3]{{#1}^{1}\vec{#2}_{1}+{#1}^{2}\vec{#2}_{2}+\dots+{#1}^{#3}\vec{#2}_{#3}}
 
 \newcommand{\ulst}[2]{{#1}^{1}, {#1}^{2}, \dots, {#1}^{#2}} 
 \newcommand{\dlst}[2]{{#1}_{1}, {#1}_{2}, \dots, {#1}_{#2}} 
 
 \newcommand{\slst}[2]{\ulst{#1}{#2}}
 \newcommand{\vlst}[2]{\dlst{\vec{#1}}{#2}}
+
+\newcommand{\lincomb}[3]{{#1}^{1}\vec{#2}_{1}+{#1}^{2}\vec{#2}_{2}+\dots+{#1}^{#3}\vec{#2}_{#3}}
+
+% Listas incompletas, es decir, 1, ..., i-1, i+1, ..., p
+% El tercer parametro es i, el resto, como las listas
+
+\newcommand{\iulst}[3]{{#1}^{1}, \dots, {#1}^{#3 - 1}, {#1}^{#3 +1},\dots, {#1}^{#2}} 
+\newcommand{\idlst}[3]{{#1}_{1}, \dots, {#1}_{#3-1}, {#1}_{#3+1},\dots, {#1}_{#2}} 
+
+\newcommand{\islst}[3]{\iulst{#1}{#2}{#3}}
+\newcommand{\ivlst}[3]{\idlst{\vec{#1}}{#2}{#3}}
+
+\newcommand{\ilincomb}[4]{{#1}^{1}\vec{#2}_{1}+\dots+ {#1}^{#4-1}\vec{#2}_{#4-1} + {#1}^{#4+1}\vec{#2}_{#4+1} + \dots + {#1}^{#3}\vec{#2}_{#3}}
+
+
+% Listas incompletas verbosas, es decir, 1, 2, ..., i-1, i+1, ..., p
+% El tercer parametro es i, el resto, como las listas
+
+\newcommand{\ivulst}[3]{{#1}^{1}, {#1}^{2}, \dots, {#1}^{#3 - 1}, {#1}^{#3 +1},\dots, {#1}^{#2}} 
+\newcommand{\ivdlst}[3]{{#1}_{1}, {#1}_{2}, \dots, {#1}_{#3-1}, {#1}_{#3+1},\dots, {#1}_{#2}} 
+
+\newcommand{\ivslst}[3]{\iulst{#1}{#2}{#3}}
+\newcommand{\ivvlst}[3]{\idlst{\vec{#1}}{#2}{#3}}
+
+\newcommand{\ivlincomb}[4]{{#1}^{1}\vec{#2}_{1}+{#1}^{2}\vec{#2}_{2}+\dots+ {#1}^{#4-1}\vec{#2}_{#4-1} + {#1}^{#4+1}\vec{#2}_{#4+1} + \dots + {#1}^{#3}\vec{#2}_{#3}}
+
+
+% Listas completas, es decir, 1, ..., i-1, i, i+1, ..., p
+% El tercer parametro es i, el resto, como las listas
+
+\newcommand{\culst}[3]{{#1}^{1}, \dots, {#1}^{#3 - 1}, {#1}^{#3}, {#1}^{#3 +1},\dots, {#1}^{#2}} 
+\newcommand{\cdlst}[3]{{#1}_{1}, \dots, {#1}_{#3-1}, {#1}_{#3}, {#1}_{#3+1},\dots, {#1}_{#2}} 
+
+\newcommand{\cslst}[3]{\culst{#1}{#2}{#3}}
+\newcommand{\cvlst}[3]{\cdlst{\vec{#1}}{#2}{#3}}
+
+\newcommand{\clincomb}[4]{{#1}^{1}\vec{#2}_{1}+\dots+{#1}^{#4-1}\vec{#2}_{#4-1} + {#1}^{#4}\vec{#2}_{#4} + {#1}^{#4+1}\vec{#2}_{#4+1} + \dots + {#1}^{#3}\vec{#2}_{#3}}
+
+% Listas completas verbosas, es decir, 1, 2, ..., i-1, i, i+1, ..., p
+% El tercer parametro es i, el resto, como las listas
+
+\newcommand{\cvulst}[3]{{#1}^{1}, {#1}^{2}, \dots, {#1}^{#3 - 1}, {#1}^{#3}, {#1}^{#3 +1},\dots, {#1}^{#2}} 
+\newcommand{\cvdlst}[3]{{#1}_{1}, {#1}_{2}, \dots, {#1}_{#3-1}, {#1}_{#3}, {#1}_{#3+1},\dots, {#1}_{#2}} 
+
+\newcommand{\cvslst}[3]{\cvulst{#1}{#2}{#3}}
+\newcommand{\cvvlst}[3]{\cvdlst{\vec{#1}}{#2}{#3}}
+
+\newcommand{\cvlincomb}[4]{{#1}^{1}\vec{#2}_{1}+{#1}^{2}\vec{#2}_{2}+\dots+{#1}^{#4-1}\vec{#2}_{#4-1} + {#1}^{#4}\vec{#2}_{#4} + {#1}^{#4+1}\vec{#2}_{#4+1} + \dots + {#1}^{#3}\vec{#2}_{#3}}
 
 % Listas con un tercer parámetro que actua de sub/superindice constante
 \newcommand{\ulstp}[3]{{#1}^{1}_{#3}, {#1}^{2}_{#3}, \dots, {#1}^{#2}_{#3}} 
