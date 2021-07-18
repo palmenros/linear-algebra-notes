@@ -7,3 +7,10 @@ build/
 *.gz
 *.toc
 *.fdb_latexmk
+src/algebra.sty
+src/calculo.sty
+src/conjuntos.sty
+src/general.sty
+src/teoremas.sty
+src/topologia.sty
+src/algebra_lineal.pdf
