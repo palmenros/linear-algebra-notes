@@ -12,12 +12,24 @@
 \newcommand{\vv}{\vec{v}}
 \newcommand{\st}{\mathrm{\,\, tal \,\, que \,\,}}
 
+%Suma directa
+\newcommand{\ds}[2]{#1 \oplus #2}
+
+%Intersección 0
+\newcommand{\zvsint}[2]{#1 \cap #2 = \zvs}
+
+%Partes de y subespacios de
+\newcommand{\partesde}[1]{\mathcal{P}\parens{#1}}
+\newcommand{\subespaciosde}[1]{\mathcal{L}\parens{#1}}
+
 %Espacio vectorial nulo
 \newcommand{\zvs}{\set{\zv}}
 
 %Espacio estándar a utilizar después de un para todo o de un existe
 \newcommand{\spc}{\hspace{1.5mm}}
 \newcommand{\kvspace}{$\K$-espacio vectorial}
+
+% Listas
 
 \newcommand{\ulst}[2]{{#1}^{1}, {#1}^{2}, \dots, {#1}^{#2}} 
 \newcommand{\dlst}[2]{{#1}_{1}, {#1}_{2}, \dots, {#1}_{#2}} 
@@ -75,9 +87,56 @@
 
 % Listas con un tercer parámetro que actua de sub/superindice constante
 \newcommand{\ulstp}[3]{{#1}^{1}_{#3}, {#1}^{2}_{#3}, \dots, {#1}^{#2}_{#3}} 
-\newcommand{\dlstp}[3]{{#1}^{#3}_{1}, {#1}^{#3}_{2}, \dots, {#1}^{#3}_{#2}} 
+\newcommand{\dlstp}[3]{{#1}^{#3}_{1}, {#1}^{#3}_{2}, \dots, {#1}^{#3}_{#2}}
+
+\newcommand{\slstp}[3]{\ulstp{#1}{#2}{#3}}
+\newcommand{\vlstp}[3]{\dlstp{\vec{#1}}{#2}{#3}}
+
+\newcommand{\lincombp}[4]{{#1}^{1}_{#4}\vec{#2}_{1}^{#4}+{#1}^{2}_{#4}\vec{#2}_{2}^{#4}+\dots+{#1}^{#3}_{#4}\vec{#2}_{#3}^{#4}}
+
+% Linear span y lista escalar
 
 \newcommand{\lspan}[1]{L\left(#1\right)}
-
 \newcommand{\scalarlst}[2]{ \ulstp{#1}{#2} \in \K }
 
+% Listas personalizadas en las que la coma se sustituye por una nueva entrada
+
+\newcommand{\pulst}[3]{{#1}^{1} #3 {#1}^{2} #3 \dots #3 {#1}^{#2}} 
+\newcommand{\pdlst}[3]{{#1}_{1} #3 {#1}_{2} #3 \dots #3 {#1}_{#2}} 
+
+\newcommand{\pslst}[3]{\pulst{#1}{#2}{#3}}
+\newcommand{\pvlst}[3]{\pdlst{\vec{#1}}{#2}{#3}}
+
+% Listas incompletas
+
+\newcommand{\piulst}[4]{{#1}^{1} #4  \dots #4  {#1}^{#3 - 1} #4  {#1}^{#3 +1} #4 \dots #4  {#1}^{#2}} 
+\newcommand{\pidlst}[4]{{#1}_{1} #4  \dots #4  {#1}_{#3-1} #4  {#1}_{#3+1} #4 \dots #4  {#1}_{#2}} 
+
+\newcommand{\pislst}[4]{\piulst{#1}{#2}{#3}{#4}}
+\newcommand{\pivlst}[4]{\pidlst{\vec{#1}}{#2}{#3}{#4}}
+
+% Listas incompletas verbosas, es decir, 1, 2, ..., i-1, i+1, ..., p
+
+\newcommand{\pivulst}[4]{{#1}^{1} #4  {#1}^{2} #4  \dots #4  {#1}^{#3 - 1} #4  {#1}^{#3 +1} #4 \dots #4  {#1}^{#2}} 
+\newcommand{\pivdlst}[4]{{#1}_{1} #4  {#1}_{2} #4  \dots #4  {#1}_{#3-1} #4  {#1}_{#3+1} #4 \dots #4  {#1}_{#2}} 
+
+\newcommand{\pivslst}[4]{\piulst{#1}{#2}{#3}{#4}}
+\newcommand{\pivvlst}[4]{\pidlst{\vec{#1}}{#2}{#3}{#4}}
+
+% Listas completas, es decir, 1, ..., i-1, i, i+1, ..., p
+% El tercer parametro es i, el resto, como las listas
+
+\newcommand{\pculst}[4]{{#1}^{1} #4  \dots #4  {#1}^{#3 - 1} #4  {#1}^{#3} #4  {#1}^{#3 +1} #4 \dots #4  {#1}^{#2}} 
+\newcommand{\pcdlst}[4]{{#1}_{1} #4  \dots #4  {#1}_{#3-1} #4  {#1}_{#3} #4  {#1}_{#3+1} #4 \dots #4  {#1}_{#2}} 
+
+\newcommand{\pcslst}[4]{\pculst{#1}{#2}{#3}{#4}}
+\newcommand{\pcvlst}[4]{\pcdlst{\vec{#1}}{#2}{#3}{#4}}
+
+% Listas completas verbosas, es decir, 1, 2, ..., i-1, i, i+1, ..., p
+% El tercer parametro es i, el resto, como las listas
+
+\newcommand{\pcvulst}[4]{{#1}^{1} #4  {#1}^{2} #4  \dots #4  {#1}^{#3 - 1} #4  {#1}^{#3} #4  {#1}^{#3 +1} #4 \dots #4  {#1}^{#2}} 
+\newcommand{\pcvdlst}[4]{{#1}_{1} #4  {#1}_{2} #4  \dots #4  {#1}_{#3-1} #4  {#1}_{#3} #4  {#1}_{#3+1} #4 \dots #4  {#1}_{#2}} 
+
+\newcommand{\pcvslst}[4]{\pcvulst{#1}{#2}{#3}{#4}}
+\newcommand{\pcvvlst}[4]{\pcvdlst{\vec{#1}}{#2}{#3}{#4}}
