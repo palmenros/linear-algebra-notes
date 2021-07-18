@@ -1,0 +1,33 @@
+% !TeX root = ../algebra_lineal.tex
+
+\documentclass[../algebra_lineal.tex]{subfiles}
+
+\begin{document}
+
+\section{Definiciones}
+En matemáticas es usual estudiar una clase de conjuntos caracterizados por cierta estructura interna que posee propiedades regulares y comunes a todos los conjuntos de la clase. Después de definir la clase con la que trabajamos (en este caso, los espacios vectoriales sobre cierto cuerpo $\K$), interesa considerar aplicaciones entre los conjuntos de la clase que relacionen y preserven las estructuras de estos a través de las propiedades comunes que poseen, transladando las del dominio al conjunto imagen. Se pueden poner muchos ejemplos que ilustran esta forma de construir la teoría, no obstante es muy común que un estudiante que no conoce a fondo el Álgebra Lineal no conozca ninguno. No obstante, citamos algunos para que el lector se familiarice con ellos y por completitud.
+\begin{itemize}
+\item La clase de los conjuntos, las aplicaciones son simplemente funciones totales de un conjunto a otro.
+\item La clase de los espacios topológicos (una generalización abstracta de los subconjuntos de $\R^n$), las aplicaciones son las funciones continuas.
+\item La clase de los grupos, no necesariamente abelianos, las aplicaciones son los homomorfismos de grupo ($f(x)+f(y)=f(x+y)$).
+\end{itemize}
+En el Álgebra Lineal tenemos otro ejemplo de esta situación, tomando como clase los espacios vectoriales sobre cierto cuerpo $\K$, siendo las aplicaciones las funciones lineales, que estudiaremos en este capítulo.
+
+\begin{definition}[Aplicación lineal]
+Sean $V$ y $V'$ espacios vectoriales sobre el mismo cuerpo $\K$. Decimos de una aplicación $f:V \mapsto V'$ que es lineal (o es un homomorfismo de espacios vectoriales) si verifica las siguientes propiedades:
+\begin{enumerate}
+\item Aditividad (preservación de la suma) de vectores: $\forall \vx, \vy \in V, \spc f(\vx + \vy) = f(\vx) + f(\vy)$
+
+\item Homogeneidad de grado 1 (preservación de la multiplicación escalar-vector): $\forall a \in \K, \spc \forall \vx \in V, \spc f(a\vx) = af(\vx)$
+\end{enumerate}
+\end{definition}
+\begin{remark}
+En general, {\bfseries cada espacio vectorial tiene una operación diferente} para sumar vectores; lo mismo pasa con la multiplicación de un vector por un escalar. No obstante, utilizamos la misma notación para los dos espacios vectoriales, haciendo uso de lo que se conoce como un abuso de notación. Formalmente esta práctica no es correcta, ya que las dos operaciones de suma no son la misma, no obstante la notación sería mucho más compleja y difícil de entender y seguir si tuviéramos que estar distinguiendo sistemáticamente entre una operación y otra, cuando una notación más compleja para distinguir entre las dos operaciones no tiene ningún valor añadido al estar siempre claro a qué operación nos referimos. Por lo tanto, todos los autores utilizan este abuso de notación.
+\end{remark}
+\begin{remark}
+Aplicando inductivamente estas propiedades podemos deducir la siguiente fórmula de la definición de aplicación lineal.
+\[
+\forall p \in \N, \spc \forall \ulst{a}{p} \in \K, \spc \forall \vlst{x}{p} \in V, \spc f(a^1\vec{x}_1+a^2\vec{x}_2+\dots +a^p\vec{x}_p)=a^1f(\vec{x}_1)+a^2f(\vec{x}_2)+\dots +a^pf(\vec{x}_p)
+\]
+\end{remark}
+\end{document}
