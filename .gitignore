@@ -13,4 +13,4 @@ src/conjuntos.sty
 src/general.sty
 src/teoremas.sty
 src/topologia.sty
-src/algebra_lineal.pdf
+*.pdf

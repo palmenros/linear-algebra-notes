@@ -953,5 +953,119 @@ Para finalizar esta sección, demostraremos que cualquier subespacio vectorial t
     \end{enumerate}
 \end{proof}
 
+\section{Espacio cociente}
+
+\subsection{Relaciones de equivalencia}
+
+Muchas veces en matemáticas nos gustaría tratar varios objetos como si fuesen uno único e indistinguible. Por ejemplo, a veces nos interesa trabajar con los enteros módulo 2, es decir, tratar a todos los números pares de una manera sin distinguirlos, y a todos los números impares de otra sin distinguirlos entre ellos. Para poder formalizar este concepto, necesitamos definir bien qué significa que dos elementos \textit{sean el mismo}. Para ello usaremos el concepto de relación de equivalencia, es decir, dos elementos \textit{serán el mismo}, si están relacionados mediante una relación de equivalencia.
+
+Antes de poder definir lo que es una relación de equivalencia, debemos definir lo que es una relación. Nos interesan principalmente las relaciones \textit{binarias}, pues la equivalencia es una propiedad entre únicamente 2 elementos. Informalmente, una relación es una propiedad definida de manera arbitraria que nos dice si dos objetos están relacionados o no.
+
+\begin{definition}
+    Una relación binaria $R$ es el subconjunto de los elementos del producto cartesiano $A_1 \times A_2$ que cumplen una determinada condición, es decir,
+    \[
+        R = \set{\parens{a_1, a_2} : \parens{a_1, a_2} \in A_1 \times A_2 \spc \land \spc R \parens{a_1, a_2} = \mathrm{Verdadero}}
+    \]
+\end{definition}
+
+\begin{notation}
+    Muchas veces en vez de denotar a una relación con letras como $R$ la denotaremos por símbolos como $\sim$. 
+\end{notation}
+
+\begin{example}
+    \label{relacion_modulo_2}
+    Siguiendo el ejemplo de los números pares e impares, definimos la relación $\sim$ en $\Z$ como $m \sim n \iff \exists k \in \Z \st m - n = 2k $. Diremos que $m$ y $n$ están relacionados si $m \sim n$.
+\end{example}
+
+\begin{remark}
+    Como en la definición de relación utilizamos un producto cartesiano que distingue el orden, las relaciones arbitrarias \textbf{no} tienen por qué ser simétricas. 
+\end{remark}
+
+Sin embargo, puede haber relaciones muy extrañas, ya que podemos definir una relación que tenga exactamente los pares que nosotros queremos que estén relacionados. Para poder trabajar comodamente con la idea de que dos elementos \textit{sean el mismo}, impondremos algunas condiciones más a la relación, condiciones que harán que la relación se comporte de manera parecida al $=$ al que estamos acostumbrados.
+
+\begin{definition}[Relación de equivalencia]
+    Sea $K$ un conjunto y sea $\sim$ una relación binaria definida sobre $K$. Se dice que $\sim$ es una relación de equivalencia si cumple las siguientes propiedades:
+    \begin{enumerate}
+        \item Reflexividad: Todo elemento está relacionado consigo mismo, es decir, $\forall x \in K, \spc x \sim x$.
+        \item Simetría: Si un elemento de $K$ está relacionado con otro, entonces ese otro elemento también se relaciona con el primero. Es decir, $\forall x, y \in K, \spc x \sim y \Rightarrow y \sim x$.
+        \item Transitividad: Si un elemento de $K$ está relacionado con otro, y ese otro a su vez se relaciona con un tercero, entonces el primero estará relacionado también con el último. Es decir, $\forall x, y, z \in K, \spc x \sim y \land y \sim z \Rightarrow x \sim z$.
+    \end{enumerate}
+\end{definition}
+
+Una vez definida la relación de equivalencia, queremos tratar a todos los elementos relacionados entre sí como los mismos elementos. Podemos dividir entonces todos los elementos en distintas \textit{clases}, es decir, en distintos conjuntos tal que en cada uno de los conjuntos se encuentran \textbf{todos} los elementos que se relacionan entre sí.
+
+\begin{definition}[Clase de equivalencia]
+    Sea $K$ un conjunto y una relación de equivalencia $\sim$ en $K$. Llamamos clase de equivalencia de un elemento $a \in K$ al conjunto $\set{x \in K : x \sim a}$. Denotaremos la clase de equivalencia de un elemento $a$ como $[a] = \set{x \in K : x \sim a}$. 
+\end{definition}
+
+\begin{remark}
+    Nótese que en la definicion de clase de equivalencia hemos usado un $a$ para definir la clase de equivalencia. Es irrelevante qué elemento de entre todos los relacionados entre sí escoger, por lo que normalmente escogemos uno que haga más sencilla la representación. A ese elemento \textit{especial} escogido para cada clase de equivalencia le llamamos \textit{representante}.
+\end{remark}
+
+\begin{example}
+    Es inmediato comprobar que la relación $\sim$ del ejemplo de los pares e impares definida en el ejemplo \ref{relacion_modulo_2} es una relación de equivalencia. Las clases de equivalencia de la relación $\sim$ serían
+    \begin{align*}
+        [0] &= \set{\dots, -4, -2, 0, 2, 4 \dots} = \set{2k : k \in \Z} \\
+        [1] &= \set{\dots, -3, -1, 1, 3, \dots} = \set{2k+1 : k \in \Z}
+    \end{align*}  
+\end{example}
+
+Las clases de equivalencia son conjuntos, pero también son elementos únicos, tal y como era nuestro objetivo. No es extraño aprovechar esta doble naturaleza de las clases de equivalencia, usándolas como elementos únicos que representan a toda la clase de equivalencia y usándolas como conjuntos.
+
+Inmmediatamente de la definición se deducen las siguientes propiedades de las clases de equivalencia.
+
+\begin{corollary}
+    \label{propiedades_relacion_equivalencia}
+    Sea $K$ un conjunto y $\sim$ una relación de equivalencia sobre $K$, entonces se satisfacen las siguientes propiedades:
+    \begin{enumerate}
+        \item Cada elemento $x \in K$ pertenece a una única clase de equivalencia $[x]$
+        \item Cada dos clases de equivalencia $[x]$ e $[y]$ son iguales o disjuntas.
+        \item El conjunto de todas las clases de equivalencia de $K$ forma una partición de $K$, es decir, la unión de todas las clases de equivalencia es $K$, todas las clases de equivalencia son disjuntas entre sí y ninguna clase de equivalencia es vacía.  
+    \end{enumerate}
+    En otras palabras, podemos expresar esas propiedades diciendo que si $K$ es un conjunto y $\sim$ una relación de equivalencia y $x, y \in K$, entonces las siguientes declaraciones son equivalentes:
+    \begin{enumerate}[a)]
+        \item $x \sim y$
+        \item $[x] = [y]$
+        \item $[x] \cap [y] \ne \emptyset$
+    \end{enumerate}
+\end{corollary}
+
+Como hemos visto en el corolario \ref{propiedades_relacion_equivalencia}, el conjunto de todas las clases de equivalencia es útil, ya que forma una partición de $K$. Este conjunto merece por tanto su propia definición.
+\begin{definition}[Conjunto cociente]
+    Sea $K$ un conjunto sobre el que se ha definido una relación de equivalencia $\sim$. Llamamos conjunto cociente, que denotaremos como $\faktor{K}{\sim}$, al conjunto de las clases de equivalencia de $\sim$. Es decir,
+    \[
+        \faktor{K}{\sim} = \set{[x] : x \in K}
+    \]
+\end{definition}
+
+\begin{remark}
+    Es posible definir funciones (y lo haremos a menudo) que tomen argumentos en el conjunto cociente, es decir, funciones del estilo $f([x])$. Es muy importante comprobar que la función esté \textbf{bien definida}, es decir, que el resultado de la función no dependa del representante $x \in K$ que tomemos de la clase de equivalencia $f([x])$.  
+\end{remark}
+
+Veamos esto mejor con un ejemplo.
+
+\begin{example}
+    \label{ejemplo_buena_definicion}
+    Seguimos con la relación $\sim$ del ejemplo \ref{relacion_modulo_2} de pares e impares. El conjunto cociente en este caso sería
+    \[
+        \faktor{\Z}{\sim} = \set{[0], [1]} = \set{ [0] = \set{2k : k \in \Z}, [1] = \set{2k+1 : k \in \Z} }
+    \]
+    Nos gustaría poder sumar elementos del conjunto cociente, es decir, poder sumar $[0]$ y $[1]$ entre sí. Además, nos gustaría que fuese consistente con la suma en $\Z$, así que definimos la suma de la siguiente manera:
+    \begin{align*}
+        + :  \qs{\Z} \times \qs{\Z} &\to \qs{\Z} \\
+          \parens{[m], [n]} &\mapsto [m + n]
+    \end{align*}
+
+    Hemos utilizado representantes específicos de las clases de equivalencia en la parte derecha de la función, por lo que necesitamos ver que el resultado no depende del representante (la función parte del espacio cociente). Es decir, debemos demostrar que si $m' \sim m$ y $n' \sim n$ entonces $[m+n]=[m'+n']$, es decir que $m+n \sim m' + n'$, aplicando las propiedades del corolario \ref{propiedades_relacion_equivalencia}. 
+    Veamos que efectivamente se cumple. Como $m' \sim m \Rightarrow \exists k \in \Z \st m' - m = 2k$ y como $n' \sim n \Rightarrow \exists l \in \Z \st n' - n = 2l$ Sumando ambas llegamos a que 
+    \[
+        \parens{m+n} - \parens{m'+n'} = \parens{m-m'} + \parens{n-n'} = 2k + 2l = 2\underbrace{\parens{k+l}}_{a \in \Z} = 2a  
+    \]
+    Por tanto, hemos demostrado que $m+n \sim m'+n'$ y la operación está bien definida. 
+\end{example}
+
+Aunque el ejemplo \ref{ejemplo_buena_definicion} parezca algo rebuscado, es habitual definir así las operaciones, y es muy importante comprobar que efectivamente están bien definidas. El motivo de definir así las operaciones, siendo \textit{consistente} con el conjunto $K$, en aquel ejemplo, $\Z$, es para aprovechar las operaciones y estructura que ya existen en $K$, y que nos permitirá trabajar más fácilmente con los cocientes.
+
+\subsection{Espacio vectorial cociente}
 
 \end{document}
