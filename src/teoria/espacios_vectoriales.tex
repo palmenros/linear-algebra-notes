@@ -6,7 +6,7 @@
 
 \section{Notación}
 
-¿Explicar aquí notación del tal que (aunque estoy poniendo tal que todo el rato con palabras)? ¿Explicar aquí la notación del subset (aunque estoy intentando utilizar todo el rato subseteq)? ¿Explicar aquí que los superíndices no son potencias? ¿Introducción a la importancia del álgebra lineal?
+¿Explicar aquí notación del tal que (aunque estoy poniendo tal que todo el rato con palabras)? ¿Explicar aquí la notación del subset (aunque estoy intentando utilizar todo el rato subseteq)? ¿Explicar aquí que los superíndices no son potencias? ¿Introducción a la importancia del álgebra lineal? ¿Tal vez introducción a las estructuras algebraicas?
 
 \section{Cuerpos}
 
@@ -15,7 +15,7 @@ Para formalizar el concepto de espacio vectorial, deberemos antes formalizar el 
 Informalmente, las propiedades más relevantes son la existencia de las operaciones suma y multiplicación, que estas sean algebraicamente cerradas
 (es decir, que al sumar o multiplicar dos elementos del cuerpo obtengamos otro elemento del cuerpo), que cumplan las propiedades asociativa, conmutativa
 \footnote{En ocasiones se distinguen a los cuerpos que cumplen la propiedad conmutativa como \textit{cuerpos abelianos}, en este texto todos los cuerpos
- serán conmutativos} y distributiva, que existan elementos neutros (0 para la suma y 1 para la multiplicación), que exista el concepto de \textit{división} (es decir, que cada elemento tenga un inverso multiplicativo), el concepto de \textit{resta} (es decir, que cada elemento tenga un opuesto aditivo).
+ serán conmutativos} y distributiva, que existan elementos neutros (0 para la suma y 1 para la multiplicación), que exista el concepto de \textit{división} (es decir, que cada elemento tenga un inverso multiplicativo), el concepto de \textit{resta} (es decir, que cada elemento tenga un opuesto aditivo). Estas aplicaciones suma y resta no tienen por qué ser la suma y resta habituales que conocemos en $\R$ o $\Complex$, puede ser cualquier otra función que satisfaga las propiedades (en algunas situaciones ni siquiera tendría sentido la suma o multiplicación usual).
 
 Analicemos ahora la definición formal.
 
@@ -984,6 +984,7 @@ Antes de poder definir lo que es una relación de equivalencia, debemos definir 
 Sin embargo, puede haber relaciones muy extrañas, ya que podemos definir una relación que tenga exactamente los pares que nosotros queremos que estén relacionados. Para poder trabajar comodamente con la idea de que dos elementos \textit{sean el mismo}, impondremos algunas condiciones más a la relación, condiciones que harán que la relación se comporte de manera parecida al $=$ al que estamos acostumbrados.
 
 \begin{definition}[Relación de equivalencia]
+    \label{definicion_relacion_equivalencia}
     Sea $K$ un conjunto y sea $\sim$ una relación binaria definida sobre $K$. Se dice que $\sim$ es una relación de equivalencia si cumple las siguientes propiedades:
     \begin{enumerate}
         \item Reflexividad: Todo elemento está relacionado consigo mismo, es decir, $\forall x \in K, \spc x \sim x$.
@@ -1012,7 +1013,7 @@ Una vez definida la relación de equivalencia, queremos tratar a todos los eleme
 
 Las clases de equivalencia son conjuntos, pero también son elementos únicos, tal y como era nuestro objetivo. No es extraño aprovechar esta doble naturaleza de las clases de equivalencia, usándolas como elementos únicos que representan a toda la clase de equivalencia y usándolas como conjuntos.
 
-Inmmediatamente de la definición se deducen las siguientes propiedades de las clases de equivalencia.
+Inmmediatamente de la definición se deducen las siguientes propiedades de las clases de equivalencia, que utilizaremos frecuentemente en lo que queda de sección.
 
 \begin{corollary}
     \label{propiedades_relacion_equivalencia}
@@ -1052,11 +1053,11 @@ Veamos esto mejor con un ejemplo.
     \]
     Nos gustaría poder sumar elementos del conjunto cociente, es decir, poder sumar $[0]$ y $[1]$ entre sí. Además, nos gustaría que fuese consistente con la suma en $\Z$, así que definimos la suma de la siguiente manera:
     \begin{align*}
-        + :  \qs{\Z} \times \qs{\Z} &\to \qs{\Z} \\
+        + :  \faktor{\Z}{\sim} \times \faktor{\Z}{\sim} &\to \faktor{\Z}{\sim} \\
           \parens{[m], [n]} &\mapsto [m + n]
     \end{align*}
 
-    Hemos utilizado representantes específicos de las clases de equivalencia en la parte derecha de la función, por lo que necesitamos ver que el resultado no depende del representante (la función parte del espacio cociente). Es decir, debemos demostrar que si $m' \sim m$ y $n' \sim n$ entonces $[m+n]=[m'+n']$, es decir que $m+n \sim m' + n'$, aplicando las propiedades del corolario \ref{propiedades_relacion_equivalencia}. 
+    Hemos utilizado representantes específicos de las clases de equivalencia en la parte derecha de la función, por lo que necesitamos ver que el resultado no depende del representante (la función parte del cociente). Es decir, debemos demostrar que si $m' \sim m$ y $n' \sim n$ entonces $[m+n]=[m'+n']$, es decir que $m+n \sim m' + n'$, aplicando las propiedades del corolario \ref{propiedades_relacion_equivalencia}. 
     Veamos que efectivamente se cumple. Como $m' \sim m \Rightarrow \exists k \in \Z \st m' - m = 2k$ y como $n' \sim n \Rightarrow \exists l \in \Z \st n' - n = 2l$ Sumando ambas llegamos a que 
     \[
         \parens{m+n} - \parens{m'+n'} = \parens{m-m'} + \parens{n-n'} = 2k + 2l = 2\underbrace{\parens{k+l}}_{a \in \Z} = 2a  
@@ -1067,5 +1068,194 @@ Veamos esto mejor con un ejemplo.
 Aunque el ejemplo \ref{ejemplo_buena_definicion} parezca algo rebuscado, es habitual definir así las operaciones, y es muy importante comprobar que efectivamente están bien definidas. El motivo de definir así las operaciones, siendo \textit{consistente} con el conjunto $K$, en aquel ejemplo, $\Z$, es para aprovechar las operaciones y estructura que ya existen en $K$, y que nos permitirá trabajar más fácilmente con los cocientes.
 
 \subsection{Espacio vectorial cociente}
+
+Una vez estudiadas las relaciones de equivalencia y conjuntos cocientes, volvemos a nuestro objetivo original, aplicarlo a espacios vectoriales. La idea informal es \textit{colapsar} todo un subespacio vectorial a un punto y colapsar todos los vectores en \textit{subespacios paralelos} (nótese que no son realmente subespacios porque no pasan por $\zv$, son más bien subespacios desplazados) a ese subespacio a otro punto distinto. Esta idea se puede apreciar en la figura \ref{quotient_space_picture}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=6cm]{quotient_space}
+    \caption{Ejemplo de espacio cociente}
+    \label{quotient_space_picture}
+\end{figure}
+
+Como se ve en la figura, para identificar los \textit{subespacios paralelos}, debemos identificar todos los vectores tales que su resta (que es el vector que va desde un vector hasta el otro) pertenece al subespacio. Partiendo de esto, definimos la relación de equivalencia $\sim$ con la que trabajaremos el resto del texto.
+
+\begin{definition}
+    Sea $L \in \subespaciosde{V}$. En $V$ se define la relación binaria $\vx \sim \vy \iff \vx - \vy \in L$ 
+\end{definition}
+
+Veamos que efectivamente es de equivalencia.
+
+\begin{proposition}
+    $\sim$ es una relación de equivalencia. 
+\end{proposition}
+
+\begin{proof}
+    Estudiamos las propiedades de la definición \ref{definicion_relacion_equivalencia} por separado.
+    \begin{enumerate}[]
+        \item Reflexividad. Como $L$ es un subespacio vectorial, entonces $\zv \in L$. Además, $\vx - \vx = \zv \in L$, por lo que $\vx \sim \vx$.
+        \item Simetría. Sean $\vx, \vy \in V$. Veamos que $\vx \sim \vy \Rightarrow \vy \sim \vx$. Si $\vx \sim \vy$, entonces $\vx - \vy \in L$.
+        \[
+            \vy - \vx = \underbrace{\parens{-1}}_{\in \K}\cdot \underbrace{(\vx - \vy)}_{\in L} \in L
+        \]
+        Por tanto, $\vx \sim \vy \Rightarrow \vy \sim \vx$.
+        \item Transitividad. Sean $\vx, \vy, \vz \in V \st \vx \sim \vy, \vy \sim \vz$. Demostremos que $\vx \sim \vz$.
+        
+        \[
+        \begin{cases}
+            \vx \sim \vy \\
+            \vy \sim \vz 
+        \end{cases} \Rightarrow \spc
+        \begin{cases}
+            \vx - \vy \in L \\
+            \vy - \vz \in L
+        \end{cases} \Rightarrow \spc
+        \underbrace{\parens{\vx - \vy}}_{\in L} + \underbrace{\parens{\vy - \vz}}_{\in L} = \vx - \vz \in L 
+        \]
+        Por tanto, $\vx \sim \vz$
+    \end{enumerate}
+\end{proof}
+
+Ahora que hemos demostrado que $\sim$ es una relación de equivalencia, podemos hablar de sus clases de equivalencia. Hallemos una caracterización que nos permita trabajar de manera cómoda con ellas. 
+
+\begin{remark}
+    Si $\vx \in V$, entonces
+    \begin{align*}
+        [\vx] &= \set{\vy \in V : \vy \sim \vx} = \set{\vy \in V : \vy - \vx \in L} = \set{\vy \in V : \exists \vec{l} \in L \st \vy = \vx + \vec{l}} \\
+              &= \set{\vx + \vec{l} : \vec{l} \in L}
+    \end{align*}
+\end{remark}
+
+Como vemos, la clase de equivalencia de un vector se consigue sumando a ese vector todos los vectores de $L$. Por ello, haremos el siguiente pequeño abuso de notación.
+
+\begin{notation}
+    Si $\vx \in V$, denotamos la clase de equivalencia de $\vx$ como $\vx + L = [\vx]$. 
+\end{notation}
+
+Nótese que no estamos sumando un vector con un subespacio, sino que únicamente es notación para la clase de equivalencia de $\vx$ bajo $\sim$.
+
+Con las clases de equivalencia definidas, podemos definir el cociente.
+\begin{definition}[Cociente]
+    Llamaremos cociente de $V$ con $L$ a
+    \[
+        \faktor{V}{L} = \faktor{V}{\sim} = \set{[\vx] : \vx \in V} = \set{\vx + L : \vx \in V}
+     \]
+     Diremos que cocientamos $V$ con $L$.
+\end{definition}
+
+Normalmente utilizaremos la notación $\faktor{V}{L}$ para remarcar el subespacio vectorial $L$ con el que definimos la relación $\sim$.
+
+Ahora que hemos definido el cociente, nos gustaría que fuese un espacio vectorial, para poder aplicar toda la teoría que estamos desarrollando. Definiremos operaciones sobre él (suma y producto por escalar) de manera que sean compatibles con las de $V$ y demostraremos que el cociente es efectivamente un espacio vectorial.
+
+\begin{definition}[Suma en el cociente]
+    \label{definicion_suma_cociente}
+    En el cociente $\faktor{V}{L}$ definimos la operación suma como
+    \begin{align*}
+        + : \qs{V}{L} \times \qs{V}{L} & \to \qs{V}{L} \\
+            \parens{\vx + L, \vy + L } & \mapsto \parens{\vx + \vy} + L
+    \end{align*}
+    Denotaremos entonces la suma como $\parens{\vx + L} + \parens{\vy + L} = \parens{\vx + \vy} + L$
+\end{definition}
+
+Como toda operación en cocientes, debemos demostrar que está bien definida.
+\begin{proposition}
+    La suma definida en $\qs{V}{L}$ en la definición \ref{definicion_suma_cociente} está bien definida.
+\end{proposition}
+\begin{proof}
+    Sean $\vx', \vy' \in V$ tales que $\vx' \sim \vx$ y $\vy' \sim \vy$. Demostremos que $\parens{\vx + \vy} + L = \parens{\vx' + \vy'}+L$. Efectivamente,
+    \[
+        \begin{cases}
+            \vx \sim \vx' \\
+            \vy \sim \vy' 
+        \end{cases} \Rightarrow \spc
+        \begin{cases}
+            \vx - \vx' \in L \\
+            \vy - \vy' \in L
+        \end{cases}
+    \]
+
+    Sumando ambos términos de la derecha tenemos que 
+    \[
+        \parens{\vx' + \vy'} - \parens{\vx + \vy} \in L \Rightarrow \parens{\vx'+\vy'} + L = \parens{\vx + \vy} + L
+    \]
+\end{proof}
+
+Ahora que hemos demostrado que la suma está bien definida, para demostrar que $\qs{V}{L}$ es un espacio vectorial, debemos demostrar que cumple las propiedades relacionadas con la suma (demostraremos ahora las que únicamente están relacionadas con la suma, pues todavía no hemos definido producto por escalar) de la definición \ref{vector_space_definition} de espacio vectorial. 
+
+Estas propiedades caracterizan una estructura algebraica muy útil, que se llama \textit{grupo abeliano}. Existen también los \textit{grupos} no necesariamente \textit{abelianos}. La única diferencia es que los grupos abelianos son conmutativos, mientras los grupos no deben por qué serlo.
+
+\begin{definition}[Grupo abeliano]
+    \label{definicion_grupo_abeliano}
+    Un grupo abeliano es un conjunto $A$ con una operación  $+ : A \times A \to A$ que satisface las siguientes propiedades:
+    \begin{enumerate}
+        \item Conmutatividad. $\forall a, b \in A, \spc a + b = b + a$
+        \item Asociatividad. $\forall a, b, c \in A, \spc \parens{a + b} + c = a + \parens{b+c}$
+        \item Elemento neutro. Existe un elemento neutro $0 \in A$ tal que $0 + a = a + 0 = a \spc \forall a \in A $
+        \item Elemento opuesto. $\forall a \in A, \spc \exists \parens{-a} \in A \st a + \parens{-a} = 0$.
+    \end{enumerate}
+\end{definition}
+
+Demostraremos fácilmente gracias a la compatibilidad de la suma en el cociente con la suma en el espacio vectorial, que efectivamente se satisfacen estas propiedades.
+
+\begin{proposition}
+    $\qs{V}{L}$ con la operación $+$ definida anteriormente es un grupo abeliano.
+\end{proposition}
+
+\begin{proof}
+    Estudiemos una por una las propiedades de la definición \ref{definicion_grupo_abeliano}.
+
+    \begin{enumerate}
+        \item Conmutatividad. 
+        \[
+            \forall \vx, \vy \in V, \spc \parens{\vx + L} + \parens{\vy + L} = \parens{\vx + \vy} + L = \parens{\vy + \vx} + L = \parens{\vy + L} + \parens{\vx + L}    
+        \] 
+        \item Asociatividad.
+        \begin{align*}
+            \forall \vx, \vy, \vz &, \spc \parens{\parens{\vx + L} + \parens{\vy + L}} + \parens{\vz + L} = \parens{\parens{\vx + \vy} + L} + \parens{\vz + L} = \parens{\parens{\vx + \vy} + \vz} + L \\
+            &= \parens{\vx + \parens{\vy + \vz}} + L = \parens{\vx + L} + \parens{\parens{\vy + L} + \parens{\vz + L}}
+        \end{align*}
+        \item Elemento neutro. Veamos que $\zv + L = \set{\vec{l} : \vec{l} \in L}$ es el elemento neutro. Sea $\vx \in V$,
+        \[
+            \parens{\vx + L} + \parens{\zv + L} = \parens{\vx + \zv} + L = \vx + L
+        \]
+        \item Elemento opuesto. Sea $\vx \in L$. Veamos que el opuesto de $\vx + L$ es $\parens{-\vx} + L$.
+        \[
+            \parens{\parens{-\vx} + L} + \parens{\vx + L} = \parens{-\vx + \vx} + L = \zv + L
+        \]
+    \end{enumerate}
+\end{proof}
+
+Definamos ahora el producto por un escalar. 
+\begin{definition}[Producto por escalar en el cociente]
+    \label{definicion_producto_escalar_cociente}
+    En el cociente $\qs{V}{L}$ definimos el producto por un escalar como la aplicación
+    \begin{align*}
+        \cdot : \K \times \qs{V}{L} &\to \qs{V}{L} \\
+                \parens{a, \vx + L}                    &\mapsto \parens{a \cdot \vx} + L
+    \end{align*}
+    Denotaremos el producto como $a \cdot \parens{\vx + L} = \parens{a \cdot \vx} + L$
+\end{definition}
+
+De nuevo, debemos demostrar que el producto está bien definido.
+
+\begin{proposition}
+    El producto por escalar definido en $\qs{V}{L}$ en la definición \ref{definicion_producto_escalar_cociente} está bien definido. 
+\end{proposition}
+
+\begin{proof}
+    Sea $\vx'$ tal que $\vx \sim \vx' \Rightarrow \vx - \vx' \in L$. Por tanto, si $a \in \K$,
+    \[
+        a \cdot \vx - a \cdot \vx' = \underbrace{a}_{\in \K} \cdot \underbrace{\parens{\vx - \vx'}}_{\in L} \in L
+    \]
+    Por tanto, $a \vx \sim a \vx' \Rightarrow a \vx + L = a \vx' + L$
+\end{proof}
+
+Demostremos que con estas operaciones $\qs{V}{L}$ es un espacio vectorial.
+
+\begin{proposition}
+    El cociente $\qs{V}{L}$ con las operaciones definidas anteriormente es un espacio vectorial.    
+\end{proposition}
+\begin{proof}
+\end{proof}
 
 \end{document}
