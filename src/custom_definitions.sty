@@ -1,5 +1,28 @@
 \ProvidesPackage{custom_definitions}
 
+%Matrices con bloques
+\newcommand{\bigzero}{\mbox{\normalfont\Large\bfseries 0}}
+\newcommand{\rvline}{\hspace*{-\arraycolsep}\vline\hspace*{-\arraycolsep}}
+
+%Rango
+\renewcommand{\ran}[1]{\mathrm{ran}\parens{#1}}
+
+%Imagen
+\newcommand{\im}[1]{\mathrm{Im}\parens{#1}}
+
+%Núcleo
+\renewcommand{\ker}[1]{\mathrm{ker}\parens{#1}}
+
+%Grupo de matrices
+\newcommand{\mg}[3]{\mathcal{M}_{#1 \times #2}\parens{#3}}
+
+%Grupo de matrices sobre K
+\newcommand{\mgk}[2]{\mg{#1}{#2}{\K}}
+
+%Grupo general lineal
+\newcommand{\gl}[2]{\mathrm{Gl}\parens{#1, #2}}
+\newcommand{\glk}[1]{\gl{#1}{\K}}
+
 % Redefinimos imension
 \renewcommand{\dim}[1]{\mathrm{dim}\parens{#1}}
 

@@ -1,0 +1,135 @@
+% !TeX root = ../algebra_lineal.tex
+
+\documentclass[../algebra_lineal.tex]{subfiles}
+
+\begin{document}
+
+\section{Semejanza y equivalencia}
+
+En el capítulo anterior hemos demostrado que a cada aplicación lineal, fijada una base, le corresponde una matriz asociada con la que podemos operar más cómodamente. Vimos también, que dicha matriz \textbf{depende de la base}. Hay algunas matrices con las que es más fácil de operar que con otras, por ejemplo, si tiene muchos ceros. 
+
+Fijada una base, no podemos cambiar la matriz que representa una aplicación lineal, pero sí que podemos buscar una base en la que la matriz asociada a la aplicación lineal sea lo más simple posible, y trabajaremos con la matriz en dicha base. Generalmente, nos gustaría sin embargo obtener las entradas y salidas en cierta base conocida. Informalmente, el procedimiento es el siguiente: 
+
+\begin{enumerate}
+    \item \textit{Traducimos} el vector de la base de entrada $\mathcal{B}_e$ a la base en la que la matriz se puede operar de forma cómoda $\mathcal{B}_c$.
+    \item \textit{Operamos} con la matriz en la base $\mathcal{B}_c$, por ejemplo, aplicando la transformación lineal al vector.
+    \item \textit{Traducimos de vuelta} el vector de la base $\mathcal{B}_c$ a la base de salida $\mathcal{B}_s$.
+\end{enumerate}
+
+Estas traducciones se pueden realizar mediante matrices de cambio de base, que ya vimos que formalmente corresponden a la aplicación lineal identidad. 
+
+Formalicemos esta introducción informal. Sean $V, V'$ dos $\K$-espacios vectoriales y sea $\mathcal{B}_V=\set{\vlst{u}{n}}$ una base de $V$ y $\mathcal{B}_{V'}=\set{\vlst{v}{m}}$ una base de $V'$. Sea $f : V \to V'$ una aplicación lineal, y consideremos su matriz $A$ asociada respecto a las bases $\mathcal{B}_V$ y $\mathcal{B}_{V'}$.
+
+\[
+    A = \mathcal{M}_{\set{\vu_i} \set{\vv_{j}}}\parens{f} \in \mathcal{M}_{m\times n}\parens{\K}  
+\]
+
+Estas bases y la matriz $A$ harán la función de las bases y matriz \textit{cómodas} en la introducción informal, las bases en las que nos gustaría trabajar con la aplicación lineal. Sin embargo, debemos aplicar la aplicación lineal $f$ a vectores entre otras bases distintas $\mathcal{B'}_{V} = \set{\vlst{x}{n}}$ de $V$ y $\mathcal{B'}_{V'} = \set{\vlst{y}{m}}$ de $V'$. Consideramos la matriz $B$ asociada a $f$ en estas bases.
+\[
+    B = \mathcal{M}_{\set{\vx_i} \set{\vy_{j}}}\parens{f} \in \mathcal{M}_{m\times n}\parens{\K}  
+\]
+Sabemos que podemos multiplicar un vector por $B$ para transformarlo por $f$ en las bases $\mathcal{B'}_{V}$ y $\mathcal{B'}_{V'}$, pero puede ser que la matriz $B$ sea mucho más complicada que la matriz $A$. Podemos considerar entonces el siguiente diagrama
+
+%Babel conflict with tikzc
+\shorthandoff{"}
+
+\begin{equation*}
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRADUB9YAHR9540YAY2BMAvpyx9x4kONLpMufIRQBGclVqMWbYOwDkkgQKGiakgFYy5CpdjwEiZddvrNWiDtz5mRwAAektI8svKKIBiOqkSabtQeet4Gxr78fObAAJ4htvLaMFAA5vBEoABmAE4QALZIZCA4EEiaOp5sFQAEfFVYxQAWOHAAjkz9dFU1AO5dAIIRlTX1iABM1M1IAMyJul4g3b39Q6PjxZMzXQBCiwfLSOtNLYiNDHQARjAMAArKTmogBgwCo4EC7DreLBQTjsHo8PqDYZjCZTCCzADCXVu1TqrQ2zx27WSICh3CM4jhCJOyPOqNmABEAHrAAC06jsFHEQA
+\begin{tikzcd}
+    V_{\{\vec{u}_i\}} \arrow[blue, r, "f \rightsquigarrow A"]                                       & {V'}_{\{\vec{v}_j\}} \arrow[blue, d, "id_{V'} \rightsquigarrow D^{-1}"] \\
+    V_{\{\vec{x}_i\}} \arrow[r, "f \rightsquigarrow B"] \arrow[blue, u, "id_V \rightsquigarrow C "] & {V'}_{\{\vec{y}_i\}}                                             
+\end{tikzcd}
+\end{equation*}
+
+\shorthandon{"}%
+
+En el diagrama representamos en las transiciones a la izquierda de la flecha la función y a la derecha la matriz asociada a dicha aplicación lineal en las bases correspondientes. Vemos que hay dos formas de ir desde $V_{\set{\vx_i}}$ (abajo a la izquierda) a ${V'}_{\set{\vy_i}}$ (abajo a la derecha), o bien usando directamente la matriz $B$, o usando las matrices $C$ y $D^{-1}$ de cambio de base que ahora definiremos y la matriz cómoda $A$. $C$ es la matriz de base de $\mathcal{B'}_V$ a $\mathcal{B}_V$, es decir
+\[
+\parens{\vlst{x}{n}} = \parens{\vlst{u}{n}} \cdot C, \spc \spc \spc \underbrace{C}_{\in \glk{n}} \in \mgk{n}{n}
+\]
+Análogamente, $D$ es la matriz de cambio de base de  $\mathcal{B'}_{V'}$ a $\mathcal{B}_{V'}$, es decir
+\[
+\parens{\vlst{y}{m}} = \parens{\vlst{v}{m}} \cdot D, \spc \spc \spc \underbrace{D}_{\in \glk{m}} \in \mgk{m}{m}
+\]
+
+En vez de utilizar $D$, utilizamos el cambio de base inverso $D^{-1}$, por lo que
+\[
+    \parens{\vlst{v}{m}} = \parens{\vlst{v}{m}} \cdot \underbrace{ D \cdot D^{-1} }_{I_{m \times m}} = \parens{\parens{\vlst{v}{m}} \cdot D} \cdot D^{-1} = \parens{\vlst{y}{m}} D^{-1}
+\]
+En notación funcional, hemos demostrado que $f = id_{V'} \circ f \circ id_{V}$, lo cual es obvio y no demasiado interesante, pero a nivel matricial hemos demostrado que 
+\[
+    B = D^{-1} \cdot A \cdot C
+\]
+
+Esta es la idea principal con la que vamos a trabajar en el capítulo. Empezamos con una definición útil.
+
+\begin{definition}
+    Dos matrices $A, B, \in \mgk{m}{n}$ son equivalentes si $\exists C \in \glk{n}$ y $\exists C \in \glk{m}$ tales que $B=D^{-1} \cdot A \cdot C$.
+\end{definition}
+
+Veamos que ser equivalente es una relación de equivalencia.
+
+\begin{proposition}
+    Que dos matrices sean equivalentes es una relación de equivalencia.
+\end{proposition}
+
+\begin{proof}
+    Estudiemos por separado las propiedades de relación de equivalencia.
+    \begin{enumerate}
+        \item Reflexividad: $A \sim A$ porque $A = {I_{m \times m}}^{-1} \cdot A \cdot I_{m \times m}$
+        \item Simetría: Si $\exists C \in \glk{n}, D \in \glk{m}$ tal que $B=D^{-1}\cdot A \cdot C$, entonces
+            \[
+                D \cdot B \cdot C^{-1} = \underbrace{D \cdot D^{-1}}_{I_{m \times m}} \cdot A \cdot \underbrace{C \cdot C^{-1}}_{I_{m \times m}} = A
+            \]
+        \item Transitividad:
+        \[
+            \begin{cases}
+                B \sim A \\
+                A \sim G 
+            \end{cases}  \Rightarrow
+            \begin{cases}
+                B = D^{-1} \cdot A \cdot C \\
+                A = E^{-1} \cdot G \cdot F
+            \end{cases}
+        \]
+        Entonces,
+        \[
+            B = D^{-1} \cdot A \cdot C = \underbrace{\parens{D^{-1} E^{-1}}}_{\in \glk{m}} \cdot G \cdot \underbrace{ \parens{F \cdot C} }_{\in \glk{n}} 
+        \]
+    \end{enumerate}
+\end{proof}
+La siguiente proposición nos da una forma muy fácil de calcular una \textit{forma canónica} para la equivalencia. Es decir, una matriz equivalente muy sencilla con la que poder comparar si dos matrices cualesquiera son equivalentes o no.
+
+\begin{proposition}
+    \label{forma_canonica_equivalencia}
+    Sea $f : V \to V'$ una aplicación lineal con $\ran{f} = r$. Entonces, existen bases $\mathcal{B}$ y $\mathcal{B'}$ en $V$ y $V'$ tal que 
+    \[
+        \mathcal{M}_{\mathcal{B}, \mathcal{B'}}\parens{f} = 
+        \begin{pmatrix}
+            I_{r \times r}
+            & \rvline & 0_{r \times \parens{n-r}} \\
+          \hline
+          0_{\parens{m-r} \times r} & \rvline &
+          0_{\parens{m-r} \times \parens{n-r}}
+          \end{pmatrix}
+    \]
+
+\end{proposition}
+
+\begin{proof}
+    Sea $n=\dim{V}$ y sea $\set{\vx_{r+1}, \dots, \vx_{n}}$ una base de $\ker{f}$, que extendemos hasta una base $\mathcal{B}=\set{\cvlst{x}{n}{r}}$ de $V$. Entonces, el conjunto 
+    \[
+       \{ f\parens{\vx_1}, f\parens{\vx_2}, \dots, f\parens{\vx_r}, \underbrace{\cancel{f\parens{\vx_{r+1}}}}_{\zv}, \underbrace{\cancel{f\parens{\vx_{r+2}}}}_{\zv}, \dots, \underbrace{\cancel{f\parens{\vx_{n}}}}_{\zv} \}  
+    \]
+    es sistema de generadores de $\im{f}$, por tanto como $\dim{\im{f}} = r$, $\set{f\parens{\vx_1}, f\parens{\vx_2}, \dots, f\parens{\vx_r}}$ es base de $\im{f}$, y la podemos extender a una base $\mathcal{B'} = \set{f\parens{\vx_1}, f\parens{\vx_2}, \dots, f\parens{\vx_r}, \vy_{r+1}, \dots, \vy_n}$ de $V'$. Entonces, la matriz $\mathcal{M}_{\mathcal{B}, \mathcal{B'}}\parens{f}$ cumple el enunciado, porque si $i \le r$, la imagen del $i$-ésimo vector $\vx_i$ de la base $\mathcal{B}$ es el $i$-ésimo vector $f\parens{\vx_i}$ de la base $\mathcal{B}'$. Si $i > r$, entonces $\vx_i \in \ker{f}$, por lo que la imagen es el vector nulo.  
+\end{proof}
+
+\begin{corollary}
+    Dos matrices $A$ y $B$ son equivalentes si y solo si $\ran{A} = \ran{B}$.
+\end{corollary}
+\begin{proof}
+    Basta obtener la forma canónica de la proposición \ref{forma_canonica_equivalencia} y compararlas entre ellas.
+\end{proof}
+
+
+\end{document}
