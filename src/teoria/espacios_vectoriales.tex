@@ -95,6 +95,10 @@ Al contrario que hicimos con los cuerpos, para definir un espacio vectorial nece
     Si $V$ es un \kvspace, llamaremos a los elementos de V \textit{vectores} y a los elementos de $\K$ escalares.
 \end{notation}
 
+\begin{notation}
+    A veces, para remarcar las operaciones de suma y multiplicación por escalar, diremos que $\parens{V, +, \cdot}$ es un \kvspace, pero usualmente omitiremos las operaciones, que se darán por sobreentendidas.
+\end{notation}
+
 A partir de ahora, si no indicamos otra cosa, $V$ será un \kvspace, siendo $\K$ un cuerpo de característica distinta de 2.
 
 Es posible que esta definición abstracta de espacio vectorial parezca al lector algo árida, sin embargo es una herramienta muy potente que nos permitirá desarrollar una teoría que se puede aplicar a cualquier conjunto que satisfaga la definición de espacio vectorial, no únicamente a $\K^n$. Ejemplos de espacios vectoriales muy útiles en las matemáticas son los polinomios $\K[x]$ \footnote{Denotaremos como $\K[x]$ el conjunto de polinomios de cualquier grado sobre la variable $x$, es decir, polinomios de la forma, $a_n x^n + \dots + a_1 x + a_0$ con $a_i \in \K \spc \forall i \in {1, \dots, n}$}, las funciones continuas, las soluciones de ecuaciones diferenciales lineales, etc. Si desarrollamos todo desde las propiedades de espacio vectorial, podremos aplicar toda la teoría que desarrollemos a todos esos espacios vectoriales y muchos otros, sin tener que distinguir casos durante el desarrollo de la teoría.
@@ -1198,6 +1202,7 @@ Estas propiedades caracterizan una estructura algebraica muy útil, que se llama
 Demostraremos fácilmente gracias a la compatibilidad de la suma en el cociente con la suma en el espacio vectorial, que efectivamente se satisfacen estas propiedades.
 
 \begin{proposition}
+    \label{proposicion_cociente_grupo_abeliano}
     $\qs{V}{L}$ con la operación $+$ definida anteriormente es un grupo abeliano.
 \end{proposition}
 
@@ -1256,6 +1261,173 @@ Demostremos que con estas operaciones $\qs{V}{L}$ es un espacio vectorial.
     El cociente $\qs{V}{L}$ con las operaciones definidas anteriormente es un espacio vectorial.    
 \end{proposition}
 \begin{proof}
+    Analizemos por separado las propiedades de la definicion \ref{vector_space_definition}. Ya hemos demostrado que $\parens{\qs{V}{L}, +}$ es un grupo abeliano en la proposición \ref{proposicion_cociente_grupo_abeliano}, así que hemos demostrado las ppropiedades de la 1 a la 4. Veamos las restantes propiedades.
+    \begin{enumerate}
+        \setcounter{enumi}{4}
+        \item Distributiva vectorial. Sea $a \in \K$ y $\vx, \vy \in V$. Entonces,
+            \begin{align*}
+                a \cdot \parens{\ecl{\vx} + \ecl{\vy}} &= a \cdot \ecl{\parens{\vx + \vy}} = \parens{a \cdot \parens{\vx + \vy}} + L = \parens{a\vx + a\vy} + L \\
+                &= \ecl{a\vx} + \ecl{a\vy} = a \ecl{\vx} + a\ecl{\vy}
+            \end{align*}
+        \item Distributiva escalar. Sean $a, b \in \K$ y sea $\vx \in V$. 
+        \begin{align*}
+            \parens{a+b}\ecl{\vx} &= \parens{\parens{a+b}\vx} + L = \parens{a \vx + b \vx} + L = \ecl{\parens{a \vx}} + \ecl{\parens{b \vx}} \\
+            &= a \ecl{\vx} + b \ecl{\vx}
+        \end{align*}
+        \item Asociativa. Sean $a, b \in \K$ y sea $\vx \in V$.
+        \[
+            \parens{a \cdot b} \ecl{\vx} = \parens{\parens{a \cdot b}\vx} + L = \parens{a \cdot \parens{b \cdot \vx}} + L = a \cdot \ecl{\parens{b \vx}} = a \cdot \parens{b \cdot \ecl{\vx}}
+        \]
+        \item Elemento unidad. Sea $\vx \in V$.
+        \[
+            1 \cdot \ecl{\vx} = \parens{1 \cdot \vx} + L = \vx + L
+        \]
+    \end{enumerate}
 \end{proof}
+
+Ahora que hemos demostrado que es un espacio vectorial, podemos hablar de su dimensión. Resulta que existe una expresión muy cómoda para la dimensión del cociente.
+
+\begin{theorem}
+    \label{dimension_cociente}
+    \[
+        \dim{\qs{V}{L}} = \dim{V} - \dim{L}
+    \]
+\end{theorem}
+
+\begin{proof}
+    Sea $\set{\vlst{u}{r}}$ una base de $L$ que vamos a extender a una base $\set{\vlst{u}{r}, \vu_{r+1}, \dots, \vu_n}$ de $V$. Veamos que $\mathcal{B} = \set{\vu_{r+1} + L, \vu_{r+2} + L, \dots, \vu_n + L}$ es base de $\qs{V}{L}$, con lo que quedaría demostrado el teorema, al ser $\dim{V} = n$ y $\dim{L} = r$.
+    \begin{enumerate}
+        \item Sistema de generadores. Veamos que $\mathcal{B}$ es sistema de generadores. Para todo $\vx \in V$ existen $\cslst{a}{n}{r} \in \K$ tales que
+        \[
+            \vx = \lincomb{a}{u}{r} + \underbrace{a^ {r+1} \vu_{r+1} + \dots + a^n \vu_n}_{\vy}
+        \] 
+        Con esa definición de $\vy$, si restamos $\vx - \vy$, al tener que $\set{\vlst{u}{r}}$ es base de $L$,
+        \[
+            \vx - \vy = \lincomb{a}{u}{r} \in L
+        \]
+        Por lo que,
+        \begin{align*}
+            \vx + L &= \vy + L = \parens{a^{r+1}\vu_{r+1} + a^{r+2}\vu{r+2} \dots + a^n \vu_n} + L \\
+                    &= \ecl{\parens{a^{r+1}\vu_{r+1}}} + \ecl{\parens{a^{r+2}\vu_{r+2}}} + \dots + \ecl{\parens{a^{n}\vu_{n}}} \\
+                    &= a^{r+1} \ecl{\vu_{r+1}} + a^{r+2} \ecl{\vu_{r+2}} + \dots + a^n \ecl{\vu_n}
+        \end{align*}
+
+        \item Linealmente independiente. Veamos que $\mathcal{B}$ es l.i. . Sean $a^{r+1}, a^{r+2}, \dots a^ n \in \K$ tales que 
+
+        \[
+            \underbrace{a^{r+1}\ecl{\vu_{r+1}} +  a^{r+2}\ecl{\vu_{r+2}} + \dots + a^{n}\ecl{\vu_{n}}}_{\parens{a^{r+1}\vu_{r+1} + a^{r+2}\vu_{r+2} + \dots + a^{n}\vu_{n}} + L} = \zv + L
+        \]
+
+        Por tanto,
+        \[
+            a^{r+1}\vu_{r+1} + a^{r+2}\vu_{r+2} + \dots + a^{n}\vu_{n} - \cancel{\zv} \in L
+        \]
+
+        Eso quiere decir que $\exists \slst{a}{r} \in \K$ tal que
+        \[
+            a^{r+1}\vu_{r+1} + a^{r+2}\vu_{r+2} + \dots + a^{n}\vu_{n} = \lincomb{a}{u}{r}
+        \] 
+        Pasando todos los términos a la izquierda restando llegamos a que,
+        \[
+            \parens{-a^1}\vu_1 + \parens{-a^2}\vu_2 + \dots + \parens{-a^r}\vu_r + a^{r+1}\vu_{r+1} + a^{r+2}\vu_{r+2} + \dots + a^{n}\vu_{n} = 0
+        \]
+
+        Como $\set{\vlst{u}{r}, \vu_{r+1}, \dots, \vu_n}$ es base de $V$, entonces en concreto son linealmente independientes, por lo que
+        \[
+            -a^1=-a^2= \dots = -a^r=a^{r+1} = a^{r+2} = \dots = a^n = 0
+        \]
+        Por tanto, $\mathcal{B}$ es linealmente independiente.
+    \end{enumerate}
+\end{proof}
+
+\begin{remark}
+    La demostración del teorema \ref{dimension_cociente} no solo nos dice la dimensión del cociente, sino que también nos proporciona una forma de encontrar una base de $\qs{V}{L}$. Para ello, tomamos una base de $L$ y la extendemos a una base de $V$. Los clases de los vectores añadidos forman una base del cociente.
+\end{remark}
+
+Veamos esto con más detalle en el siguiente ejemplo. Las ecuaciones de un subespacio y los determinantes se estudiarán con más detalle en siguientes secciones, aunque haremos uso de ellas para resolver este ejemplo.
+
+\begin{example}
+    Sea $L \subseteq \R^5$ el subespacio que tiene las ecuaciones canónicas 
+    \[
+        L \equiv \systeme{
+            x_1 + x_2 + x_3 + x_4 + x_5 = 0, 
+            x_2 - x_3 + x_5 = 0, 
+            x_1 - x_2 + x_4 = 0,  
+            x_1 - x_3 + x_4 + x_5 = 0
+            }
+    \]
+    Determinar una base de $\qs{\R^5}{L}$ y, en dicha base, calcular las coordenadas de $\parens{0, 2, -3, 0, -1} + L$ en dicha base
+\end{example}
+\begin{solution}
+Primero vamos a calcular una base de $L$ para extenderla a una de $V$. Nos damos cuenta de que la cuarta ecuación es la segunda más la tercera, por lo que podemos eliminarla resultando
+\[
+    L \equiv \systeme{
+        x_1 + x_2 + x_3 + x_4 + x_5 = 0, 
+        x_2 - x_3 + x_5 = 0, 
+        x_1 - x_2 + x_4 = 0
+        }
+\]
+
+Dejamos a la izquierda $x_1, x_2, x_3$ y pasamos a la derecha $x_4, x_5$
+\[
+    L \equiv \systeme{
+        x_1 + x_2 + x_3 = - x_4 - x_5, 
+        x_2 - x_3 = - x_5, 
+        x_1 - x_2 = - x_4
+        }
+\]
+
+Vemos que las ecuaciones son independientes porque 
+\[
+\det\mat{
+    0 & 1 & 1 \\
+    0 & 1 & -1 \\
+    1 & -1 & 0 
+} = -1 -1 -1 = -3 \ne 0
+\]
+
+Tenemos 3 ecuaciones independientes y $\dim{R^5}=5$, por lo que $\dim{L} = 2$. Esto lo veremos más adelante en el capítulo 3. Como $\dim{L}=2$, necesitamos dos vectores para la base. Si fijamos $x_4, x_5$, entonces tendremos un sistema de Cramer con solución única. Existen entonces dos vectores $\parens{a_1, a_2, a_3, 1, 0}, \parens{b_1, b_2, b_3, 0, 1} \in L$. A pesar de desconocer los valores $a_i, b_j$, sabemos que $\set{\parens{1, 0, 0, 0, 0}, \parens{0, 1, 0, 0, 0}, \parens{0, 0, 1, 0, 0}}$ completan la base porque desarrollando el determinante primero por las últimas columanas tenemos que
+\[
+  \det\mat{
+      a_1 & b_1 & 1 & 0 & 0 \\
+      a_2 & b_2 & 0 & 1 & 0 \\
+      a_3 & b_3 & 0 & 0 & 1 \\
+      1 & 0 & 0 & 0 & 0 \\
+      0 & 1 & 0 & 0 & 0
+  } \ne 0
+\]
+
+Aún así, si quisieramos calcular $a_i$ y $b_j$, que no nos es necesario para resolver el problema, solamente hace falta resolver el sistema asociado a fijar $x_4 = 1, x_5 = 0$ y $x_4 = 0, x_5 = 1$ en las ecuaciones de $L$. 
+
+Por la demostración del teorema \ref{dimension_cociente} sabemos que una base del cociente son las clases de equivalencia de los vectores que completan la base de $L$, por lo que una posible base del cociente es
+\[
+    \mathcal{B} = \set{\parens{1, 0, 0, 0, 0} + L, \parens{0, 1, 0, 0, 0} + L, \parens{0, 0, 1, 0, 0} + L}
+\]
+
+Calculemos ahora las coordenadas de $\parens{0, 2, -3, 0, -1} + L$ en la base $\mathcal{B}$. Para ello, queremos hallar $\alpha, \beta, \gamma \in \K$ tal que
+\begin{align*}
+    \parens{0, 2, -3, 0, -1} + L &= \alpha \ecl{\parens{1, 0, 0, 0, 0}} + \beta \ecl{\parens{0, 1, 0, 0, 0}} + \gamma \ecl{\parens{0, 0, 1, 0, 0}} \\
+                                 &= \parens{\alpha, \beta, \gamma, 0, 0} + L
+\end{align*}
+
+Como queremos entonces que las clases de equivalencia sean las mismas, esto es equivalente a que $\parens{\alpha, \beta, \gamma, 0, 0} \sim \parens{0, 2, -3, 0, -1}$, es decir, 
+\[
+    \parens{\alpha, \beta, \gamma, 0, 0} - \parens{0, 2, -3, 0, -1}  = \parens{\alpha, \beta-2, \gamma+3, 0, 1} \in L
+\]
+Para que ese vector pertenezca a $L$, debe verificar las ecuaciones del subespacio, es decir, $\alpha, \beta, \gamma$ deben verificar
+\[
+    \systeme{
+        \alpha + \parens{\beta - 2} + \parens{\gamma} = -1, 
+        \parens{\beta - 2} - \parens{\gamma + 3} = -1, 
+        \alpha - \parens{\beta - 2} = 0
+        } \iff \systeme*{
+            \alpha = -\frac{2}{3},
+            \beta = \frac{4}{3},
+            \gamma = -\frac{8}{3}
+        }
+\]
+Donde las coordenadas $\alpha,\beta,\gamma$ se han hallado resolviendo el sistema lineal de ecuaciones.
+\end{solution}
+
 
 \end{document}
